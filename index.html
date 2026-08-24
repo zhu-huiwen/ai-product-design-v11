@@ -271,15 +271,15 @@
     .creative-result-empty { display: flex; min-height: 650px; align-items: center; justify-content: center; }
     .required-mark { margin-left: 4px; color: #F56C6C; font-size: 16px; line-height: 1; vertical-align: middle; }
     .field-page { min-height: 1080px; padding: 28px 48px 50px; background: #F7F7F8; }
-    .secondary-page-heading { display: block; margin-bottom: 24px; }
-    .secondary-page-heading__main { display: block; min-width: 0; }
-    .secondary-page-back.el-button { display: inline-flex; width: 84px; min-width: 84px; height: 36px; margin-bottom: 16px; align-items: center; justify-content: center; gap: 4px; padding: 0 8px; border: 1px solid var(--sw-primary); border-radius: 8px; color: var(--sw-primary); background: transparent; box-shadow: none; font-size: 15px; font-weight: 600; }
-    .secondary-page-back.el-button:hover, .secondary-page-back.el-button:focus { border-color: #0057DE; color: #0057DE; background: #F2F7FF; box-shadow: none; }
-    .secondary-page-back.el-button i { margin: 0; font-size: 17px; font-weight: 600; }
+    .secondary-page-heading { display: flex; margin-bottom: 24px; align-items: flex-start; justify-content: space-between; gap: 24px; }
+    .secondary-page-heading__main { display: flex; min-width: 0; align-items: flex-start; gap: 10px; }
+    .secondary-page-back.el-button { display: inline-flex; width: 32px; min-width: 32px; height: 32px; margin: -2px 0 0; flex: 0 0 32px; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 6px; color: #606266; background: transparent; box-shadow: none; }
+    .secondary-page-back.el-button:hover, .secondary-page-back.el-button:focus { border: 0; color: #303133; background: #ECEEF2; box-shadow: none; }
+    .secondary-page-back.el-button i { margin: 0; font-size: 20px; font-weight: 400; }
     .secondary-page-copy { min-width: 0; }
     .secondary-page-title { margin: 0 0 8px; color: #303133; font-size: 22px; font-weight: 600; }
     .secondary-page-subtitle { margin: 0; color: #858990; line-height: 22px; }
-    .secondary-page-heading > .meta-right { margin-top: 12px; color: #858990; text-align: left; }
+    .secondary-page-heading > .meta-right { flex: 0 0 auto; color: #858990; text-align: right; }
     .field-page__title { margin: 0 0 8px; color: #303133; font-size: 22px; }
     .field-page__desc { margin: 0 0 22px; color: #858990; line-height: 22px; }
     .field-page__card { padding: 22px 24px; border: 1px solid #F0F1F3; border-radius: 14px; background: #fff; }
@@ -491,7 +491,7 @@
           <section v-if="currentPage==='history'" class="sw-business-card reference-secondary-page" data-annotation-page="history-designs" data-annotation-title="历史设计">
             <div class="secondary-page-heading">
               <div class="secondary-page-heading__main">
-                <el-button class="secondary-page-back" icon="el-icon-back" data-flow-step="action" @click="goPage('planning')">返回</el-button>
+                <el-tooltip content="返回企划输入" placement="bottom"><el-button class="secondary-page-back" icon="el-icon-arrow-left" aria-label="返回企划输入" data-flow-step="action" @click="goPage('planning')"></el-button></el-tooltip>
                 <div class="secondary-page-copy"><h1 class="secondary-page-title">历史设计</h1><p class="secondary-page-subtitle">查看历史方案，恢复未完成的设计任务。</p></div>
               </div>
               <div class="meta-right">版本：v1.2｜历史模型数据保留可查看<br>Seedream 5 未完成任务恢复时自动切换模型</div>
@@ -518,7 +518,7 @@
             <section data-user-task="从字段管理返回 AI 产品设计">
               <div class="secondary-page-heading">
                 <div class="secondary-page-heading__main">
-                  <el-button class="secondary-page-back" icon="el-icon-back" data-flow-step="action" @click="goPage('planning')">返回</el-button>
+                  <el-tooltip content="返回企划输入" placement="bottom"><el-button class="secondary-page-back" icon="el-icon-arrow-left" aria-label="返回企划输入" data-flow-step="action" @click="goPage('planning')"></el-button></el-tooltip>
                   <div class="secondary-page-copy"><h1 class="field-page__title" data-flow-step="entry">字段管理</h1><p class="secondary-page-subtitle">维护企划输入中的创意方向、工艺 / 成本 / 面料约束与禁止项。</p></div>
                 </div>
               </div>
