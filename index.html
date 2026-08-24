@@ -205,7 +205,9 @@
     .splice-mode-chip { display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 14px; color: var(--sw-primary); background: #EDF4FF; font-size: 13px; font-weight: 500; }
     .splice-card { min-height: 530px; padding: 24px; border: 1px solid #E1E5EC; border-radius: 12px; background: #fff; }
     .splice-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
-    .splice-card__title-row { display: flex; align-items: center; gap: 14px; color: #303133; font-size: 21px; }
+    .splice-card__title-row { display: flex; align-items: baseline; gap: 12px; }
+    .splice-card__title { color: var(--sw-primary); font-size: 21px; font-weight: 500; }
+    .splice-card__method { color: #909399; font-size: 13px; font-weight: 400; }
     .splice-card__hint { margin: 8px 0 0; color: #777B82; font-size: 14px; }
     .splice-card__actions { display: flex; align-items: center; gap: 12px; }
     .splice-card__actions .el-button { height: 38px; border-radius: 8px; font-size: 15px; }
@@ -398,12 +400,9 @@
 
               <section class="prompt-column" data-user-task="生成拼接方案或三套 AI 文字方案">
                 <template v-if="promptMode==='splice'">
-                  <div v-if="hasSplicedPrompt" class="prompt-column__head">
-                    <span class="splice-panel-heading">提示词方案 <span class="splice-mode-chip">字段直接拼接</span></span>
-                  </div>
                   <article v-if="hasSplicedPrompt" class="splice-card" data-flow-step="result" data-annotation-identity="SPLICE-1">
                     <div class="splice-card__head">
-                      <div><div class="splice-card__title-row"><span>拼接方案</span></div><p class="splice-card__hint">该方案将作为后续生成创意的提示词</p></div>
+                      <div><div class="splice-card__title-row"><span class="splice-card__title">拼接方案</span><span class="splice-card__method">字段直接拼接</span></div><p class="splice-card__hint">该方案将作为后续生成创意的提示词</p></div>
                       <div class="splice-card__actions" data-flow-step="action">
                         <el-button class="splice-action-button" @click="copyText(splicedPrompt,'方案已复制')">复制方案</el-button>
                         <el-button v-if="!splicedEditing" class="splice-action-button" @click="splicedEditing=true">编辑方案</el-button>
