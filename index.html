@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 产品设计｜交互原型 v1.1</title>
+  <title>AI 产品设计｜提示词双模式原型 v1.2</title>
   <meta name="description" content="AI 产品设计交互原型在线预览">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI 产品设计｜交互原型 v1.1">
+  <meta property="og:title" content="AI 产品设计｜提示词双模式原型 v1.2">
   <meta property="og:description" content="AI 产品设计交互原型在线预览">
   <meta property="og:image" content="https://zhu-huiwen.github.io/ai-product-design-v11/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI 产品设计｜交互原型 v1.1">
+  <meta name="twitter:title" content="AI 产品设计｜提示词双模式原型 v1.2">
   <meta name="twitter:description" content="AI 产品设计交互原型在线预览">
   <meta name="twitter:image" content="https://zhu-huiwen.github.io/ai-product-design-v11/og.png">
   <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css">
@@ -149,6 +149,19 @@
     .planning-hero p { margin: 0; color: #7A7D84; font-size: 16px; }
     .planning-hero__actions { display: flex; align-items: center; gap: 12px; }
     .planning-hero__actions .el-button { height: 52px; padding: 0 28px; border-radius: 27px; font-size: 18px; }
+    .planning-hero__actions .el-button + .el-button { margin-left: 0; }
+    .regenerate-prompt-button.el-button { min-width: 146px; border-color: #F2F2F2; color: #303133; background: #F4F4F4; box-shadow: 0 5px 12px rgba(48,49,51,.06); }
+    .regenerate-prompt-button.el-button:hover, .regenerate-prompt-button.el-button:focus { border-color: #E7E7E7; color: #1F2329; background: #ECECEC; }
+    .regenerate-prompt-button.el-button i { margin-right: 7px; font-size: 20px; }
+    .prompt-mode-dropdown { display: inline-flex; }
+    .prompt-mode-dropdown .el-button-group { display: inline-flex; }
+    .prompt-mode-dropdown .el-button--primary:first-child { min-width: 166px; padding-right: 22px; border-radius: 27px 0 0 27px; }
+    .prompt-mode-dropdown .el-button--primary:last-child { width: 48px; padding: 0; border-radius: 0 27px 27px 0; }
+    .prompt-mode-dropdown .el-button--primary:last-child::before { top: 9px; bottom: 9px; }
+    .prompt-mode-menu { min-width: 196px; padding: 7px; border-radius: 10px; }
+    .prompt-mode-menu .el-dropdown-menu__item { display: flex; min-height: 42px; align-items: center; padding: 0 14px; border-radius: 7px; color: #303133; font-size: 15px; }
+    .prompt-mode-menu .el-dropdown-menu__item:hover { color: var(--sw-primary); background: #F2F7FF; }
+    .prompt-mode-menu .el-dropdown-menu__item i { margin-right: 9px; color: inherit; font-size: 17px; }
     .planning-hero__actions .el-select { width: 132px; }
     .planning-hero__actions .el-input__inner { height: 42px; border-radius: 22px; }
     .planning-result-note { margin: 0 48px; padding-top: 14px; }
@@ -201,6 +214,12 @@
     .splice-editor .el-textarea__inner { min-height: 300px !important; padding: 22px; border-radius: 8px; font-size: 17px; line-height: 2; }
     .splice-card__footer { display: flex; margin-top: 16px; align-items: center; justify-content: space-between; gap: 18px; color: #9AA0AA; font-size: 13px; }
     .splice-saved { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .prompt-initial-empty { display: flex; min-height: 820px; align-items: center; justify-content: center; color: #8B9098; background: #fff; text-align: center; }
+    .prompt-empty-logo { position: relative; display: inline-flex; width: 92px; height: 92px; margin-bottom: 22px; align-items: center; justify-content: center; overflow: hidden; border: 7px solid #E4F4FF; border-radius: 50%; background: #DFF6FF; box-shadow: 0 8px 20px rgba(32,143,255,.12); }
+    .prompt-empty-logo::before, .prompt-empty-logo::after { position: absolute; width: 36px; height: 70px; border-radius: 50%; background: #55D8F4; content: ""; transform: rotate(27deg); }
+    .prompt-empty-logo::after { margin-left: 30px; background: #248CFF; transform: rotate(33deg); }
+    .prompt-initial-empty strong { display: block; margin-bottom: 10px; color: #303133; font-size: 21px; font-weight: 600; }
+    .prompt-initial-empty p { margin: 0; color: #8A8E95; font-size: 15px; line-height: 25px; }
     .reference-empty { display: flex; min-height: 720px; align-items: center; justify-content: center; color: #9A9EA5; text-align: center; }
     .reference-page-shell { padding: 24px 48px 50px; }
     .reference-page-shell .sw-business-card { border-radius: 14px; }
@@ -248,9 +267,16 @@
     .creative-result-empty { display: flex; min-height: 650px; align-items: center; justify-content: center; }
     .required-mark { margin-left: 4px; color: #F56C6C; font-size: 16px; line-height: 1; vertical-align: middle; }
     .field-page { min-height: 1080px; padding: 28px 48px 50px; background: #F7F7F8; }
-    .field-page__back.el-button { display: inline-flex; min-width: 88px; height: 40px; align-items: center; justify-content: center; gap: 6px; padding: 0 14px; border: 0; color: #303133; background: transparent; font-size: 16px; }
-    .field-page__back.el-button i { margin: 0; font-size: 18px; }
-    .field-page__title { margin: 18px 0 8px; color: #303133; font-size: 22px; }
+    .secondary-page-heading { display: block; margin-bottom: 24px; }
+    .secondary-page-heading__main { display: block; min-width: 0; }
+    .secondary-page-back.el-button { display: inline-flex; width: 84px; min-width: 84px; height: 36px; margin-bottom: 16px; align-items: center; justify-content: center; gap: 4px; padding: 0 8px; border: 1px solid var(--sw-primary); border-radius: 8px; color: var(--sw-primary); background: transparent; box-shadow: none; font-size: 15px; font-weight: 600; }
+    .secondary-page-back.el-button:hover, .secondary-page-back.el-button:focus { border-color: #0057DE; color: #0057DE; background: #F2F7FF; box-shadow: none; }
+    .secondary-page-back.el-button i { margin: 0; font-size: 17px; font-weight: 600; }
+    .secondary-page-copy { min-width: 0; }
+    .secondary-page-title { margin: 0 0 8px; color: #303133; font-size: 22px; font-weight: 600; }
+    .secondary-page-subtitle { margin: 0; color: #858990; line-height: 22px; }
+    .secondary-page-heading > .meta-right { margin-top: 12px; color: #858990; text-align: left; }
+    .field-page__title { margin: 0 0 8px; color: #303133; font-size: 22px; }
     .field-page__desc { margin: 0 0 22px; color: #858990; line-height: 22px; }
     .field-page__card { padding: 22px 24px; border: 1px solid #F0F1F3; border-radius: 14px; background: #fff; }
     .field-page__head { display: flex; margin-bottom: 18px; align-items: center; justify-content: space-between; }
@@ -288,7 +314,7 @@
             <el-tooltip content="历史设计" placement="bottom"><el-button class="reference-icon-button" icon="el-icon-refresh-left" @click="goPage('history')"></el-button></el-tooltip>
             <el-popover placement="bottom-end" width="270" trigger="click">
               <div class="reference-settings">
-                <div class="reference-settings__row"><span>当前版本</span><el-tag size="small">v1.1</el-tag></div>
+                <div class="reference-settings__row"><span>当前版本</span><el-tag size="small">v1.2</el-tag></div>
                 <div class="reference-settings__row"><span>演示角色</span><el-select v-model="roleMode" size="small" style="width:135px" @change="handleRoleChange"><el-option label="设计师" value="designer"></el-option><el-option label="只读访客" value="viewer"></el-option></el-select></div>
                 <div class="reference-settings__row"><span>演示生图结果</span><el-select v-model="imageScenario" size="small" style="width:135px" data-field-description="仅用于原型演示；正式产品由后端生成结果决定，不允许用户选择。"><el-option label="全部成功" value="success"></el-option><el-option label="部分成功" value="partial"></el-option><el-option label="全部失败" value="allFailed"></el-option><el-option label="处理中/连接异常" value="processing"></el-option></el-select></div>
                 <el-button type="text" icon="el-icon-setting" @click="goPage('fields')">进入字段管理</el-button><br>
@@ -303,18 +329,21 @@
 
         <main class="sw-workspace" data-layout-section="workspace">
           <section v-if="currentPage==='planning'" class="sw-business-card reference-planning-page" data-annotation-page="planning-input" data-annotation-title="企划输入">
-            <section class="planning-hero" data-user-task="将企划字段拼接为单个方案">
+            <section class="planning-hero" data-user-task="选择提示词生成方式并生成文字方案">
               <div data-flow-step="entry">
                 <h1>1. 企划输入</h1>
-                <p>填写左侧需求 → 点击右上角「生成提示词」→ AI 生成 3 套文字方案</p>
+                <p>填写左侧需求 → 点击按钮主体执行当前方式；点击小三角可切换另一种提示词生成方式</p>
               </div>
               <div class="planning-hero__actions" data-flow-step="action">
-                <el-tooltip v-if="promptMode!=='splice'" content="按固定顺序把左侧非空字段直接拼接为 1 个文字方案，不经过 AI 改写。" placement="top"><el-button icon="el-icon-document" :disabled="isViewer" @click="openSplicedPrompt">拼接提示词</el-button></el-tooltip>
-                <el-button v-if="promptMode==='splice'" icon="el-icon-refresh" :disabled="isViewer" @click="openSplicedPrompt">重新生成</el-button>
-                <el-button v-else-if="directions.length" icon="el-icon-refresh" :loading="promptLoading" :disabled="isViewer" @click="generatePrompts">重新生成提示词</el-button>
-                <el-button v-else icon="el-icon-magic-stick" :loading="promptLoading" :disabled="isViewer" @click="generatePrompts">生成提示词</el-button>
-                <el-button v-if="(directions.length || promptMode==='splice') && !showRetryButton" type="primary" :loading="imageLoading" :disabled="isViewer || !activeGenerationDirections.length" @click="generateCreative">{{ imageLoading ? '生成中' : '生成创意' }} <i class="el-icon-arrow-right el-icon--right"></i></el-button>
-                <el-button v-if="showRetryButton" type="primary" icon="el-icon-refresh" @click="generateCreative" :disabled="isViewer">重新生成</el-button>
+                <el-button v-if="hasCurrentPromptResult" class="regenerate-prompt-button" icon="el-icon-refresh-right" :loading="promptLoading" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode">重新生成</el-button>
+                <el-dropdown class="prompt-mode-dropdown" split-button type="primary" trigger="click" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode" @command="switchPromptMode">
+                  <i :class="promptMode==='ai' ? 'el-icon-magic-stick' : 'el-icon-document'"></i>&nbsp;{{ promptActionLabel }}
+                  <el-dropdown-menu slot="dropdown" class="prompt-mode-menu">
+                    <el-dropdown-item :command="promptMode==='ai' ? 'splice' : 'ai'" :icon="promptMode==='ai' ? 'el-icon-document' : 'el-icon-magic-stick'">{{ alternatePromptActionLabel }}</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <el-button v-if="hasCurrentPromptResult && !showRetryButton" type="primary" :loading="imageLoading" :disabled="isViewer || !activeGenerationDirections.length" @click="generateCreative">{{ imageLoading ? '生成中' : '生成创意' }} <i class="el-icon-arrow-right el-icon--right"></i></el-button>
+                <el-button v-if="showRetryButton" type="primary" icon="el-icon-refresh" @click="generateCreative" :disabled="isViewer">重新生成创意</el-button>
               </div>
             </section>
 
@@ -367,11 +396,11 @@
 
               <section class="prompt-column" data-user-task="生成拼接方案或三套 AI 文字方案">
                 <template v-if="promptMode==='splice'">
-                  <div class="prompt-column__head">
-                    <span class="splice-panel-heading">拼接方案 <span class="splice-mode-chip">字段直接拼接</span></span>
-                    <span class="prompt-column__meta">左侧信息已拼接为 1 个文字方案</span>
+                  <div v-if="hasSplicedPrompt" class="prompt-column__head">
+                    <span class="splice-panel-heading">提示词方案 <span class="splice-mode-chip">字段直接拼接</span></span>
+                    <span class="prompt-column__meta">{{ hasSplicedPrompt ? '已保存 1 个拼接方案' : '尚未生成拼接方案' }}</span>
                   </div>
-                  <article class="splice-card" data-flow-step="result" data-annotation-identity="SPLICE-1">
+                  <article v-if="hasSplicedPrompt" class="splice-card" data-flow-step="result" data-annotation-identity="SPLICE-1">
                     <div class="splice-card__head">
                       <div><div class="splice-card__title-row"><span>方案 1</span><span class="splice-mode-chip">拼接生成</span></div><p class="splice-card__hint">该方案将作为后续生成创意的提示词</p></div>
                       <div class="splice-card__actions" data-flow-step="action">
@@ -384,14 +413,16 @@
                     <el-input v-else class="splice-editor" v-model="splicedPrompt" type="textarea" :rows="10" maxlength="2000" show-word-limit data-field-description="拼接方案：可编辑；最多 2000 字；保存后作为后续生成创意的提示词。"></el-input>
                     <div class="splice-card__footer"><span>来源：品类选择、企划需求、参考图片、参考竞品及文字说明、创意方向、工艺约束、禁止项（仅包含非空字段）</span><span class="splice-saved"><i class="el-icon-circle-check"></i>{{ splicedEditing ? '编辑中' : '已保存' }}</span></div>
                   </article>
+                  <div v-else class="prompt-initial-empty" data-flow-step="result"><div><span class="prompt-empty-logo" aria-hidden="true"></span><strong>请先填写左侧需求</strong><p>点击「拼接提示词」按钮，将左侧信息拼接为1个文字方案</p></div></div>
                 </template>
                 <template v-else>
-                <div class="prompt-column__head">
-                  <span><i class="prompt-column__dot"></i>AI 已生成 {{ directions.length }} 套文字方案</span>
-                  <span class="prompt-column__meta"><span>勾选多个方案 · 进入下一步生成创意图</span><span>已选 {{ selectedDirections.length }} / {{ directions.length }} 方案</span></span>
+                <div v-if="directions.length" class="prompt-column__head">
+                  <span class="splice-panel-heading">提示词方案 <span class="splice-mode-chip">AI 智能生成</span></span>
+                  <span v-if="directions.length" class="prompt-column__meta"><span>已保存 {{ directions.length }} 套文字方案</span><span>已选 {{ selectedDirections.length }} / {{ directions.length }} 方案</span></span>
+                  <span v-else class="prompt-column__meta">尚未生成 AI 方案</span>
                 </div>
                 <div v-if="promptLoading" class="reference-empty" v-loading="true" element-loading-text="AI 正在生成 3 套文字方案"></div>
-                <div v-else-if="!directions.length" class="reference-empty" data-flow-step="result"><div><i class="el-icon-magic-stick" style="font-size:40px"></i><br><br>填写左侧需求并点击「生成提示词」</div></div>
+                <div v-else-if="!directions.length" class="prompt-initial-empty" data-flow-step="result"><div><span class="prompt-empty-logo" aria-hidden="true"></span><strong>请先填写左侧需求</strong><p>点击「生成提示词」按钮，AI将整理出3个文字方案</p></div></div>
                 <div v-else class="reference-direction-list" data-flow-step="result">
                   <article v-for="item in directions" :key="item.id" class="reference-direction-card" :class="{'is-selected':item.selected}" :data-annotation-identity="item.id" @click="toggleDirection(item)">
                     <div class="reference-direction-card__head"><span class="match-chip">匹配 {{ item.match }}%</span><span class="reference-direction-code">方案 {{ item.code }}</span><span class="reference-direction-name">{{ item.name }}</span></div>
@@ -458,7 +489,13 @@
           </section>
 
           <section v-if="currentPage==='history'" class="sw-business-card reference-secondary-page" data-annotation-page="history-designs" data-annotation-title="历史设计">
-            <div class="prototype-meta"><h1 class="prototype-title">历史设计</h1><div class="meta-right">版本：v1.1｜历史模型数据保留可查看<br>Seedream 5 未完成任务恢复时自动切换模型</div></div>
+            <div class="secondary-page-heading">
+              <div class="secondary-page-heading__main">
+                <el-button class="secondary-page-back" icon="el-icon-back" data-flow-step="action" @click="goPage('planning')">返回</el-button>
+                <div class="secondary-page-copy"><h1 class="secondary-page-title">历史设计</h1><p class="secondary-page-subtitle">查看历史方案，恢复未完成的设计任务。</p></div>
+              </div>
+              <div class="meta-right">版本：v1.2｜历史模型数据保留可查看<br>Seedream 5 未完成任务恢复时自动切换模型</div>
+            </div>
             <section data-user-task="恢复 Seedream 5 未完成设计并切换模型">
               <el-alert class="task-guide" type="info" :closable="false" show-icon data-flow-step="entry"><div slot="title">用户任务：恢复未完成设计｜入口：AI 产品设计 / 历史设计 / 继续设计｜角色：设计师</div><p class="task-guide__line">操作步骤：1. 查询未完成设计；2. 点击“继续设计”；3. 若原模型为 Seedream 5，自动切换 Nano Banana 2 并保留企划上下文。</p></el-alert>
               <el-alert v-if="historyMessage" class="result-strip" :title="historyMessage" type="warning" :closable="false" show-icon data-flow-step="result"></el-alert>
@@ -479,9 +516,12 @@
 
           <section v-if="currentPage==='fields'" class="sw-business-card field-page" data-annotation-page="field-management" data-annotation-title="字段管理">
             <section data-user-task="从字段管理返回 AI 产品设计">
-              <el-button class="field-page__back" icon="el-icon-arrow-left" data-flow-step="action" @click="goPage('planning')">返回</el-button>
-              <h1 class="field-page__title" data-flow-step="entry">字段管理</h1>
-              <p class="field-page__desc">维护企划输入中的创意方向、工艺 / 成本 / 面料约束与禁止项。此页复用 V1.0，仅演示 V1.1 放大的返回入口。</p>
+              <div class="secondary-page-heading">
+                <div class="secondary-page-heading__main">
+                  <el-button class="secondary-page-back" icon="el-icon-back" data-flow-step="action" @click="goPage('planning')">返回</el-button>
+                  <div class="secondary-page-copy"><h1 class="field-page__title" data-flow-step="entry">字段管理</h1><p class="secondary-page-subtitle">维护企划输入中的创意方向、工艺 / 成本 / 面料约束与禁止项。</p></div>
+                </div>
+              </div>
               <section class="field-page__card" data-flow-step="result">
                 <div class="field-page__head"><h2>企划字段</h2><el-button type="primary" icon="el-icon-plus" :disabled="isViewer">新增字段</el-button></div>
                 <el-table :data="fieldRows" border style="width:100%">
@@ -492,7 +532,6 @@
                   <el-table-column prop="status" label="状态" width="110"><template slot-scope="scope"><el-tag size="mini" type="success">{{ scope.row.status }}</el-tag></template></el-table-column>
                   <el-table-column label="操作" width="140"><template><el-button type="text" :disabled="isViewer">编辑</el-button></template></el-table-column>
                 </el-table>
-                <div class="field-description" style="margin-top:14px">返回入口：文案 16 px、箭头 18 px、间距 6 px、最小点击热区 88 × 40 px；文案、位置、导航逻辑与整体风格保持不变。</div>
               </section>
             </section>
           </section>
@@ -542,15 +581,16 @@
           planningMessage: '请填写企划需求；关键操作后自动保存。', planningMessageType: 'info',
           promptLoading: false, imageLoading: false, retryLoading: false, showRetryButton: false, promptDialogVisible: false,
           acceptanceVisible: false, detailDrawerVisible: false, refineDrawerVisible: false, historyDrawerVisible: false,
-          activePrompt: '', activePromptItemId: '', promptMode: 'ai', splicedPrompt: '', splicedEditing: false, imageScenario: 'success', creativeMessage: '本次计划生成 3 张，成功 3 张，失败 0 张。', creativeMessageType: 'success', failedImageCount: 0,
+          activePrompt: '', activePromptItemId: '', promptMode: 'ai', splicedPrompt: '', splicedEditing: false, promptStorageKey: 'ai-product-design-v12-empty-state-prompt-results', imageScenario: 'success', creativeMessage: '本次计划生成 3 张，成功 3 张，失败 0 张。', creativeMessageType: 'success', failedImageCount: 0,
           categories: ['内裤','文胸','袜子','吊带'], directionOptions: ['少女感','清新耐看','几何撞色','休闲字母'], constraintOptions: ['车缝','随心裁','精梳棉混纺','基础色'], forbiddenOptions: ['复杂印花','浮夸 Logo','禁止与竞品完全一致','禁止人体穿着展示','禁止文字内容','禁止浮夸Logo','禁止竞品复刻','禁止非指定品牌标识'],
           imageKinds: [{key:'sketch',label:'线稿'},{key:'competitor',label:'竞品'},{key:'creative',label:'创意'}],
-          planning: { category:'袜子', need:'设计一款带有局部提花/撞色图案的中筒袜，风格年轻活泼，图案有辨识度但不过于复杂，兼顾日常搭配与舒适穿着。', competitor:'清新耐看', directions:['少女感'], constraints:['车缝','随心裁'], forbidden:['复杂印花','浮夸 Logo','禁止与竞品完全一致'], images:{sketch:'',competitor:'竞品中筒袜.jpg',creative:''} },
-          directions: [
+          planning: { category:'内裤', need:'', competitor:'', directions:[], constraints:[], forbidden:[], images:{sketch:'',competitor:'',creative:''} },
+          directionTemplates: [
             {id:'DIR-A',code:'A',name:'清新浪点提花中筒袜',match:95,selected:true,role:'资深内衣产品设计师',style:'年轻活泼、清新耐看。袜身主体为纯色，脚踝至小腿中部区域采用细密的局部提花波点图案，袜口为罗纹收边设计。',colors:'奶白色、浅灰色、藏青色',shape:'中筒袜版型，长度覆盖脚踝至小腿肚下方，袜口采用高弹力罗纹设计，贴合腿部曲线不勒腿。',material:'主体采用75%精梳棉+20%锦纶+5%氨纶混纺纱线，保证透气吸汗与高弹力。',idea:'以“清新耐看”为核心，通过局部小波点提花打破纯色袜子的单调感，波点图案规则排列，辨识度高且不过于复杂。',prompt:'方案 A｜清新浪点提花中筒袜\n角色：资深内衣产品设计师\n风格：年轻活泼、清新耐看\n配色：奶白色、浅灰色、藏青色'},
             {id:'DIR-B',code:'B',name:'几何撞色条纹中筒袜',match:92,selected:true,role:'资深内衣产品设计师',style:'年轻活力、清新简约。袜身采用大色块几何拼接与细条纹撞色设计，整体视觉冲击力强但线条干净利落。',colors:'米白色、薄荷绿、柠檬黄',shape:'标准中筒长度，袜筒部分采用竖向细条纹提花，拉长腿部视觉比例；袜口采用宽边罗纹设计。',material:'采用80%精梳棉+15%聚酯纤维+5%氨纶，提升图案色彩的持久度与耐磨性。',idea:'通过几何色块与细条纹的撞色组合，营造年轻活泼的视觉效果。色彩选择低饱和度的清新色系，避免色彩过于艳丽浮夸。',prompt:'方案 B｜几何撞色条纹中筒袜\n角色：资深内衣产品设计师\n风格：年轻活力、清新简约\n配色：米白色、薄荷绿、柠檬黄'},
             {id:'DIR-C',code:'C',name:'局部字母提花休闲中筒袜',match:90,selected:true,role:'资深内衣产品设计师',style:'青春休闲、清新百搭。袜身主体为纯色，小腿外侧局部区域提花呈现简约的英文字母或符号。',colors:'燕麦色、天蓝色、浅粉色',shape:'中筒袜型，袜筒高度适中，适合搭配运动鞋或休闲鞋；袜口罗纹弹力适中，不勒腿。',material:'采用70%精梳棉+25%锦纶+5%氨纶，袜底毛圈部分采用加厚纱线，提升舒适度与耐穿性。',idea:'将年轻群体喜爱的简约字母元素融入局部提花设计中，增加趣味性与辨识度，同时保持整体清新感。',prompt:'方案 C｜局部字母提花休闲中筒袜\n角色：资深内衣产品设计师\n风格：青春休闲、清新百搭\n配色：燕麦色、天蓝色、浅粉色'}
           ],
+          directions: [],
           generation: {formats:['PNG'],ratio:'3:4',resolution:'4K'}, creativeKeyword:'', creativeStatus:'全部', creativePage:1, creativePageSize:6,
           creatives: [], selectedCreative:{name:'',code:'',desc:'',tags:[],image:'',final:false},
           refine: {prompt:'保持中筒袜版型，将局部提花调整为更细密的浅蓝波点，并保留奶白色主体。',scenario:'success',loading:false,message:'',messageType:'info',version:1},
@@ -573,32 +613,75 @@
       computed: {
         isViewer: function(){ return this.roleMode==='viewer'; },
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
-        activeGenerationDirections: function(){ return this.promptMode==='splice' ? [{id:'SPLICE-1',code:'P',name:'拼接方案 1',match:100,selected:true,prompt:this.splicedPrompt}] : this.selectedDirections; },
+        hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
+        hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
+        promptActionLabel: function(){ return this.promptMode==='ai' ? '生成提示词' : '拼接提示词'; },
+        alternatePromptActionLabel: function(){ return this.promptMode==='ai' ? '拼接提示词' : '生成提示词'; },
+        activeGenerationDirections: function(){ return this.promptMode==='splice' ? (this.hasSplicedPrompt ? [{id:'SPLICE-1',code:'P',name:'拼接方案 1',match:100,selected:true,prompt:this.splicedPrompt}] : []) : this.selectedDirections; },
         creativeOutcomeTitle: function(){ return (this.failedImageCount===0?'全部成功':'部分成功')+'｜'+this.creativeMessage; },
         filteredCreatives: function(){ var self=this; return this.creatives.filter(function(item){var byKeyword=!self.creativeKeyword||item.name.indexOf(self.creativeKeyword.trim())!==-1;var byStatus=self.creativeStatus==='已移除'?item.removed:(self.creativeStatus==='定稿'?item.final&&!item.removed:!item.removed);return byKeyword&&byStatus;}); },
         pagedCreatives: function(){ return this.filteredCreatives.slice((this.creativePage-1)*this.creativePageSize,this.creativePage*this.creativePageSize); },
         filteredHistory: function(){ var self=this; return this.historyRows.filter(function(row){var key=self.historyFilters.keyword.trim();var byKey=!key||[row.name,row.creator,row.category].join(' ').indexOf(key)!==-1;var byCategory=!self.historyFilters.category||row.category===self.historyFilters.category;var byStatus=self.historyFilters.status==='全部'||row.status===self.historyFilters.status;return byKey&&byCategory&&byStatus;}); },
         pagedHistory: function(){ return this.filteredHistory.slice((this.historyPage-1)*this.historyPageSize,this.historyPage*this.historyPageSize); }
       },
+      created: function(){ this.restorePromptResults(); },
       methods: {
         goPage: function(page){ if(page==='creative'&&!this.creatives.length){this.$message.warning('请先在企划输入中生成至少 1 张成功创意图');return;} this.currentPage=page;this.activeMenu=page==='history'?'history':'product'; },
-        startNewDesign: function(){ this.currentPage='planning';this.activeMenu='product';this.promptMode='ai';this.splicedEditing=false;this.planningMessage='已进入新设计，关键操作后自动保存。';this.planningMessageType='success';this.$message.success('已进入新设计'); },
+        startNewDesign: function(){
+          this.currentPage='planning';
+          this.activeMenu='product';
+          this.promptMode='ai';
+          this.directions=[];
+          this.splicedPrompt='';
+          this.splicedEditing=false;
+          this.creatives=[];
+          this.showRetryButton=false;
+          this.planningStep=0;
+          this.planning={category:'内裤',need:'',competitor:'',directions:[],constraints:[],forbidden:[],images:{sketch:'',competitor:'',creative:''}};
+          try{localStorage.removeItem(this.promptStorageKey);}catch(e){}
+          this.planningMessage='已进入新设计，请填写企划需求后生成提示词。';
+          this.planningMessageType='success';
+          this.$message.success('已进入新设计');
+        },
         handleRoleChange: function(){ this.$message[this.isViewer?'warning':'success'](this.isViewer?'已切换只读访客：生成、复制、精修和继续设计不可用':'已切换设计师角色'); },
-        toggleDirection: function(item){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}item.selected=!item.selected; },
+        toggleDirection: function(item){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}item.selected=!item.selected;this.persistPromptResults(); },
         setImage: function(key,file){ this.$set(this.planning.images,key,file.name);this.planningMessage='已选择'+file.name+'，关键操作后将自动保存。';this.planningMessageType='success'; },
+        persistPromptResults: function(){ try{localStorage.setItem(this.promptStorageKey,JSON.stringify({directions:this.directions,splicedPrompt:this.splicedPrompt,savedAt:new Date().toISOString()}));}catch(e){} },
+        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(typeof saved.splicedPrompt==='string')this.splicedPrompt=saved.splicedPrompt;}catch(e){} },
+        runCurrentPromptMode: function(){ if(this.promptMode==='splice')this.openSplicedPrompt();else this.generatePrompts(); },
+        switchPromptMode: function(mode){
+          if(mode===this.promptMode)return;
+          this.persistPromptResults();
+          this.splicedEditing=false;
+          var hasSaved=mode==='splice' ? this.hasSplicedPrompt : this.directions.length>0;
+          if(hasSaved){
+            this.promptMode=mode;
+            this.planningMessage=mode==='splice'?'已恢复已保存的拼接提示词。':'已恢复已保存的 AI 提示词方案。';
+            this.planningMessageType='success';
+            this.$message.success(this.planningMessage);
+            return;
+          }
+          if(!this.validatePlanningRequired())return;
+          this.promptMode=mode;
+          if(mode==='splice'){
+            this.openSplicedPrompt();
+          }else{
+            this.generatePrompts();
+          }
+        },
         combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key])imgs.push(kind.label+'：'+p.images[kind.key]);});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
         buildSplicedPrompt: function(){ var p=this.planning;var parts=[];if(p.need.trim())parts.push(p.need.trim().replace(/[。；;]+$/,''));else if(p.category)parts.push('设计一款'+p.category);var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key])imgs.push(kind.label+'图片“'+p.images[kind.key]+'”');});if(imgs.length)parts.push('参考'+imgs.join('、'));if(p.competitor.trim())parts.push('参考竞品及文字说明：'+p.competitor.trim().replace(/[。；;]+$/,''));if(p.directions.length)parts.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)parts.push('工艺 / 成本 / 面料约束：'+p.constraints.join('、'));if(p.forbidden.length)parts.push('禁止项：'+p.forbidden.join('、'));return parts.join('；')+'。'; },
-        openSplicedPrompt: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}this.splicedPrompt=this.buildSplicedPrompt();this.splicedEditing=false;this.promptMode='splice';this.planningStep=Math.max(this.planningStep,1);this.planningMessage='已按左侧非空字段直接拼接为 1 个方案。';this.planningMessageType='success';this.$message.success('拼接方案已生成'); },
-        saveSplicedPrompt: function(){ if(!this.splicedPrompt.trim()){this.$message.error('请输入方案内容');return;}this.splicedEditing=false;this.$message.success('方案已保存'); },
+        openSplicedPrompt: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}if(!this.validatePlanningRequired())return;this.splicedPrompt=this.buildSplicedPrompt();this.splicedEditing=false;this.promptMode='splice';this.planningStep=Math.max(this.planningStep,1);this.planningMessage='已按左侧非空字段直接拼接为 1 个方案；AI 方案保持保存。';this.planningMessageType='success';this.persistPromptResults();this.$message.success('拼接提示词已生成并保存'); },
+        saveSplicedPrompt: function(){ if(!this.splicedPrompt.trim()){this.$message.error('请输入方案内容');return;}this.splicedEditing=false;this.persistPromptResults();this.$message.success('拼接方案已保存'); },
         copyText: function(text,successMessage){ var self=this;function fallback(){var area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');self.$message.success(successMessage);}catch(e){self.$message.error('复制失败，请重试');}document.body.removeChild(area);}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){self.$message.success(successMessage);}).catch(fallback);}else{fallback();} },
         validatePlanningRequired: function(){
           if(!this.planning.category){ this.$message.error('请选择品类'); return false; }
           if(!this.planning.need.trim()){ this.$message.error('请输入企划需求'); return false; }
           return true;
         },
-        generatePrompts: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}if(!this.validatePlanningRequired())return;var self=this;this.promptMode='ai';this.splicedEditing=false;this.promptLoading=true;this.planningMessage='正在使用 Nano Banana 2 生成 3 套文字方案…';this.planningMessageType='info';setTimeout(function(){self.promptLoading=false;self.directions=self.directions.map(function(item){var next=Object.assign({},item);next.selected=true;next.prompt=self.combinedPrompt()+'\n设计方案：'+item.name+'\n'+item.prompt;return next;});self.planningStep=2;self.planningMessage='已生成 3 套文字方案；P95 验收目标为较 V1.0 降低至少 20%。';self.planningMessageType='success';self.$message.success('已生成 3 套文字方案');},850); },
+        generatePrompts: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}if(!this.validatePlanningRequired())return;var self=this;this.promptMode='ai';this.splicedEditing=false;this.promptLoading=true;this.planningMessage='正在使用 Nano Banana 2 生成 3 套文字方案…';this.planningMessageType='info';setTimeout(function(){self.promptLoading=false;self.directions=self.directionTemplates.map(function(item){var next=Object.assign({},item);next.selected=true;next.prompt=self.combinedPrompt()+'\n设计方案：'+item.name+'\n'+item.prompt;return next;});self.planningStep=2;self.planningMessage='已生成并保存 3 套 AI 文字方案；拼接方案保持保存。';self.planningMessageType='success';self.persistPromptResults();self.$message.success('AI 提示词已生成并保存');},850); },
         showPrompt: function(item){ this.activePrompt=item.prompt;this.activePromptItemId=item.id;this.promptDialogVisible=true; },
-        saveActivePrompt: function(){ var item=this.directions.find(function(row){return row.id===this.activePromptItemId;}.bind(this));if(item)item.prompt=this.activePrompt;this.promptDialogVisible=false;this.$message.success('提示词修改已保存'); },
+        saveActivePrompt: function(){ var item=this.directions.find(function(row){return row.id===this.activePromptItemId;}.bind(this));if(item)item.prompt=this.activePrompt;this.promptDialogVisible=false;this.persistPromptResults();this.$message.success('提示词修改已保存'); },
         productSvg: function(color,label){ var svg='<svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540"><rect width="720" height="540" fill="#F7F8FA"/><g transform="translate(205 70)"><path d="M75 20 H220 V235 C220 292 181 328 126 328 H70 C34 328 18 305 36 276 L75 215 Z" fill="'+color+'" stroke="#CDD3DC" stroke-width="4"/><path d="M75 72 H220 M75 110 H220" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="13"/><circle cx="113" cy="164" r="11" fill="#FFFFFF"/><circle cx="151" cy="164" r="11" fill="#FFFFFF"/><circle cx="189" cy="164" r="11" fill="#FFFFFF"/></g><text x="360" y="455" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="25" fill="#667085">'+label+'</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg); },
         generateCreative: function(){ if(!this.validatePlanningRequired())return;var activeDirections=this.activeGenerationDirections;if(!activeDirections.length){this.$message.error('请至少选择 1 个文字方案');return;}var self=this;this.imageLoading=true;this.showRetryButton=false;this.planningMessage='正在生成创意图；前端不设置固定超时，以后端任务终态为准。';this.planningMessageType='info';setTimeout(function(){self.imageLoading=false;if(self.imageScenario==='processing'){self.planningMessage='任务仍在处理中';self.planningMessageType='warning';self.showRetryButton=false;self.$message.warning('任务仍在处理中，可离开并从历史任务恢复查看最终结果');return;}if(self.imageScenario==='allFailed'){self.failedImageCount=3;self.planningMessage='生成失败';self.planningMessageType='error';self.showRetryButton=true;self.$message.error('生成失败');return;}var count=self.imageScenario==='partial'?2:3;var palette=['#D8E4EA','#D8EBDD','#EADCE6'];var selected=activeDirections;self.creatives=[];for(var i=0;i<count;i++){var source=selected[i%selected.length];self.creatives.push({id:'STYLE-'+(i+1),code:source.code+'-01',name:source.name,desc:self.promptMode==='splice'?'基于字段直接拼接方案生成，提示词未经 AI 改写。':'基于已选文字方案生成，突出局部提花、清新配色与日常舒适穿着。',tags:self.promptMode==='splice'?['字段拼接','直接生成']:(i===0?['提花','清新']:i===1?['撞色','几何']:['字母','休闲']),image:self.productSvg(palette[i],source.name),final:false,removed:false});}self.failedImageCount=3-count;self.creativeMessage='本次计划生成 3 张，成功 '+count+' 张，失败 '+self.failedImageCount+' 张。';self.creativeMessageType=self.failedImageCount?'warning':'success';self.creativeStatus='全部';self.currentPage='creative';self.planningStep=2;self.$message[self.failedImageCount?'warning':'success'](self.creativeMessage);},1000); },
         retryFailedImages: function(){ var self=this;var retryCount=this.failedImageCount;if(!retryCount)return;var activeDirections=this.activeGenerationDirections;this.retryLoading=true;setTimeout(function(){var palette=['#D8E4EA','#D8EBDD','#EADCE6'];for(var i=0;i<retryCount;i++){var source=activeDirections[(self.creatives.length+i)%activeDirections.length];var index=self.creatives.length+1;self.creatives.push({id:'STYLE-'+index,code:source.code+'-'+String(index).padStart(2,'0'),name:source.name+' · 重试成功',desc:'仅补生成上一批失败位置，已成功图片保持不变。',tags:['失败项重试','已追加'],image:self.productSvg(palette[(index-1)%palette.length],source.name),final:false,removed:false});}self.retryLoading=false;self.failedImageCount=0;self.creativeMessage='本次重试计划生成 '+retryCount+' 张，成功 '+retryCount+' 张，失败 0 张；结果已追加到当前任务。';self.creativeMessageType='success';self.$message.success('失败项已重新生成并追加');},850); },
