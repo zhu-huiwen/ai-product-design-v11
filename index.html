@@ -249,7 +249,6 @@
     .creative-result-title { display: flex; align-items: center; gap: 9px; }
     .creative-result-title::before { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--sw-primary); content: ""; }
     .creative-result-help { color: #7B7F86; }
-    .creative-status-banner { margin-bottom: 18px; }
     .creative-filter-pills { margin-bottom: 20px; }
     .creative-filter-pills .el-radio-button__inner { height: 44px; padding: 0 22px; border: 1px solid #E5E7EC !important; border-radius: 24px !important; line-height: 42px; box-shadow: none !important; font-size: 16px; }
     .creative-filter-pills .el-radio-button:first-child .el-radio-button__inner { border-left: 1px solid #E5E7EC; }
@@ -465,7 +464,6 @@
 
               <section class="creative-result-panel">
                 <div class="creative-result-head"><span class="creative-result-title">创意图（成功 {{ creatives.length }} 张）</span><span class="creative-result-help">点卡片可查看详情，点击“精修”生成新版本</span></div>
-                <el-alert class="creative-status-banner" :title="creativeOutcomeTitle" :type="creativeMessageType" :closable="false" show-icon data-flow-step="result"></el-alert>
                 <div v-if="failedImageCount>0" style="display:flex;justify-content:flex-end;margin:-4px 0 14px"><el-button type="primary" icon="el-icon-refresh" :loading="retryLoading" :disabled="isViewer" @click="retryFailedImages">重新生成失败项（{{ failedImageCount }}）</el-button></div>
                 <div class="creative-filter-pills" data-layout-section="status-filter"><el-radio-group v-model="creativeStatus"><el-radio-button label="全部"></el-radio-button><el-radio-button label="定稿"></el-radio-button><el-radio-button label="已移除"></el-radio-button></el-radio-group></div>
                 <section data-layout-section="filters" style="display:none"><el-input v-model="creativeKeyword" data-annotation-filter="creativeKeyword"></el-input></section>
@@ -618,7 +616,6 @@
         promptActionLabel: function(){ return this.promptMode==='ai' ? '生成提示词' : '拼接提示词'; },
         alternatePromptActionLabel: function(){ return this.promptMode==='ai' ? '拼接提示词' : '生成提示词'; },
         activeGenerationDirections: function(){ return this.promptMode==='splice' ? (this.hasSplicedPrompt ? [{id:'SPLICE-1',code:'P',name:'拼接方案 1',match:100,selected:true,prompt:this.splicedPrompt}] : []) : this.selectedDirections; },
-        creativeOutcomeTitle: function(){ return (this.failedImageCount===0?'全部成功':'部分成功')+'｜'+this.creativeMessage; },
         filteredCreatives: function(){ var self=this; return this.creatives.filter(function(item){var byKeyword=!self.creativeKeyword||item.name.indexOf(self.creativeKeyword.trim())!==-1;var byStatus=self.creativeStatus==='已移除'?item.removed:(self.creativeStatus==='定稿'?item.final&&!item.removed:!item.removed);return byKeyword&&byStatus;}); },
         pagedCreatives: function(){ return this.filteredCreatives.slice((this.creativePage-1)*this.creativePageSize,this.creativePage*this.creativePageSize); },
         filteredHistory: function(){ var self=this; return this.historyRows.filter(function(row){var key=self.historyFilters.keyword.trim();var byKey=!key||[row.name,row.creator,row.category].join(' ').indexOf(key)!==-1;var byCategory=!self.historyFilters.category||row.category===self.historyFilters.category;var byStatus=self.historyFilters.status==='全部'||row.status===self.historyFilters.status;return byKey&&byCategory&&byStatus;}); },
