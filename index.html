@@ -209,6 +209,8 @@
     .splice-card__hint { margin: 8px 0 0; color: #777B82; font-size: 14px; }
     .splice-card__actions { display: flex; align-items: center; gap: 12px; }
     .splice-card__actions .el-button { height: 38px; border-radius: 8px; font-size: 15px; }
+    .splice-card__actions .splice-action-button.el-button { min-width: 116px; height: 44px; padding: 0 20px; border: 1px solid #D9DDE5; border-radius: 10px; color: #303133; background: #fff; font-size: 15px; font-weight: 400; }
+    .splice-card__actions .splice-action-button.el-button:hover, .splice-card__actions .splice-action-button.el-button:focus { border-color: #B9C1CC; color: #303133; background: #FAFBFC; }
     .splice-content { min-height: 300px; margin-top: 24px; padding: 24px; border: 1px solid #E1E5EC; border-radius: 8px; color: #303133; background: #fff; font-size: 17px; line-height: 2; white-space: pre-wrap; }
     .splice-editor { margin-top: 24px; }
     .splice-editor .el-textarea__inner { min-height: 300px !important; padding: 22px; border-radius: 8px; font-size: 17px; line-height: 2; }
@@ -335,7 +337,7 @@
                 <p>填写左侧需求 → 点击按钮主体执行当前方式；点击小三角可切换另一种提示词生成方式</p>
               </div>
               <div class="planning-hero__actions" data-flow-step="action">
-                <el-button v-if="hasCurrentPromptResult" class="regenerate-prompt-button" icon="el-icon-refresh-right" :loading="promptLoading" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode">重新生成</el-button>
+                <el-button v-if="hasCurrentPromptResult && promptMode==='ai'" class="regenerate-prompt-button" icon="el-icon-refresh-right" :loading="promptLoading" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode">重新生成</el-button>
                 <el-dropdown class="prompt-mode-dropdown" split-button type="primary" trigger="click" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode" @command="switchPromptMode">
                   <i :class="promptMode==='ai' ? 'el-icon-magic-stick' : 'el-icon-document'"></i>&nbsp;{{ promptActionLabel }}
                   <el-dropdown-menu slot="dropdown" class="prompt-mode-menu">
@@ -398,14 +400,13 @@
                 <template v-if="promptMode==='splice'">
                   <div v-if="hasSplicedPrompt" class="prompt-column__head">
                     <span class="splice-panel-heading">提示词方案 <span class="splice-mode-chip">字段直接拼接</span></span>
-                    <span class="prompt-column__meta">{{ hasSplicedPrompt ? '已保存 1 个拼接方案' : '尚未生成拼接方案' }}</span>
                   </div>
                   <article v-if="hasSplicedPrompt" class="splice-card" data-flow-step="result" data-annotation-identity="SPLICE-1">
                     <div class="splice-card__head">
-                      <div><div class="splice-card__title-row"><span>方案 1</span><span class="splice-mode-chip">拼接生成</span></div><p class="splice-card__hint">该方案将作为后续生成创意的提示词</p></div>
+                      <div><div class="splice-card__title-row"><span>拼接方案</span></div><p class="splice-card__hint">该方案将作为后续生成创意的提示词</p></div>
                       <div class="splice-card__actions" data-flow-step="action">
-                        <el-button type="text" icon="el-icon-document-copy" @click="copyText(splicedPrompt,'方案已复制')">复制方案</el-button>
-                        <el-button v-if="!splicedEditing" @click="splicedEditing=true">编辑方案</el-button>
+                        <el-button class="splice-action-button" @click="copyText(splicedPrompt,'方案已复制')">复制方案</el-button>
+                        <el-button v-if="!splicedEditing" class="splice-action-button" @click="splicedEditing=true">编辑方案</el-button>
                         <el-button v-else type="primary" @click="saveSplicedPrompt">保存方案</el-button>
                       </div>
                     </div>
