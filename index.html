@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 产品设计｜提示词双模式原型 v1.2</title>
+  <title>AI 产品设计｜提示词双模式原型 v1.1</title>
   <meta name="description" content="AI 产品设计交互原型在线预览">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI 产品设计｜提示词双模式原型 v1.2">
+  <meta property="og:title" content="AI 产品设计｜提示词双模式原型 v1.1">
   <meta property="og:description" content="AI 产品设计交互原型在线预览">
   <meta property="og:image" content="https://zhu-huiwen.github.io/ai-product-design-v11/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI 产品设计｜提示词双模式原型 v1.2">
+  <meta name="twitter:title" content="AI 产品设计｜提示词双模式原型 v1.1">
   <meta name="twitter:description" content="AI 产品设计交互原型在线预览">
   <meta name="twitter:image" content="https://zhu-huiwen.github.io/ai-product-design-v11/og.png">
   <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css">
@@ -322,7 +322,7 @@
             <el-tooltip content="历史设计" placement="bottom"><el-button class="reference-icon-button" icon="el-icon-refresh-left" @click="goPage('history')"></el-button></el-tooltip>
             <el-popover placement="bottom-end" width="270" trigger="click">
               <div class="reference-settings">
-                <div class="reference-settings__row"><span>当前版本</span><el-tag size="small">v1.2</el-tag></div>
+                <div class="reference-settings__row"><span>当前版本</span><el-tag size="small">v1.1</el-tag></div>
                 <div class="reference-settings__row"><span>演示角色</span><el-select v-model="roleMode" size="small" style="width:135px" @change="handleRoleChange"><el-option label="设计师" value="designer"></el-option><el-option label="只读访客" value="viewer"></el-option></el-select></div>
                 <div class="reference-settings__row"><span>演示生图结果</span><el-select v-model="imageScenario" size="small" style="width:135px" data-field-description="仅用于原型演示；正式产品由后端生成结果决定，不允许用户选择。"><el-option label="全部成功" value="success"></el-option><el-option label="部分成功" value="partial"></el-option><el-option label="全部失败" value="allFailed"></el-option><el-option label="处理中/连接异常" value="processing"></el-option></el-select></div>
                 <el-button type="text" icon="el-icon-setting" @click="goPage('fields')">进入字段管理</el-button><br>
@@ -497,7 +497,7 @@
                 <el-tooltip content="返回企划输入" placement="bottom"><el-button class="secondary-page-back" icon="el-icon-arrow-left" aria-label="返回企划输入" data-flow-step="action" @click="goPage('planning')"></el-button></el-tooltip>
                 <div class="secondary-page-copy"><h1 class="secondary-page-title">历史设计</h1><p class="secondary-page-subtitle">查看历史方案，恢复未完成的设计任务。</p></div>
               </div>
-              <div class="meta-right">版本：v1.2｜历史模型数据保留可查看<br>Seedream 5 未完成任务恢复时自动切换模型</div>
+              <div class="meta-right">版本：v1.1｜历史模型数据保留可查看<br>Seedream 5 未完成任务恢复时自动切换模型</div>
             </div>
             <section data-user-task="恢复 Seedream 5 未完成设计并切换模型">
               <el-alert class="task-guide" type="info" :closable="false" show-icon data-flow-step="entry"><div slot="title">用户任务：恢复未完成设计｜入口：AI 产品设计 / 历史设计 / 继续设计｜角色：设计师</div><p class="task-guide__line">操作步骤：1. 查询未完成设计；2. 点击“继续设计”；3. 若原模型为 Seedream 5，自动切换 Nano Banana 2 并保留企划上下文。</p></el-alert>
