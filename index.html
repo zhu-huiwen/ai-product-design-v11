@@ -222,31 +222,30 @@
     .splice-card__actions .el-button { height: 38px; border-radius: 8px; font-size: 15px; }
     .splice-card__actions .splice-action-button.el-button { min-width: 116px; height: 44px; padding: 0 20px; border: 1px solid #D9DDE5; border-radius: 10px; color: #303133; background: #fff; font-size: 15px; font-weight: 400; }
     .splice-card__actions .splice-action-button.el-button:hover, .splice-card__actions .splice-action-button.el-button:focus { border-color: #B9C1CC; color: #303133; background: #FAFBFC; }
-    .splice-workspace { display: grid; min-height: 510px; margin-top: 24px; grid-template-columns: minmax(0,1.2fr) minmax(320px,.9fr); overflow: hidden; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
-    .splice-text-panel, .splice-reference-panel { padding: 26px 28px; }
-    .splice-reference-panel { border-left: 1px solid #E1E5EC; }
-    .splice-section-heading { display: flex; margin-bottom: 20px; align-items: center; gap: 10px; color: #303133; font-size: 18px; font-weight: 600; }
-    .splice-text-section { padding: 0 0 22px; border-bottom: 1px solid #E8EAF0; }
-    .splice-text-section + .splice-text-section { padding-top: 22px; }
-    .splice-text-section:last-child { padding-bottom: 0; border-bottom: 0; }
-    .splice-text-section__title { display: flex; margin-bottom: 11px; align-items: center; gap: 10px; color: #303133; font-size: 16px; font-weight: 600; }
-    .splice-text-section__title::before { width: 3px; height: 18px; border-radius: 2px; background: #303133; content: ""; }
-    .splice-text-section__content { margin: 0; color: #3F434A; font-size: 15px; line-height: 25px; }
-    .splice-text-section__content.is-empty { color: #A4A8AF; }
+    .splice-prompt-surface { min-height: 500px; margin-top: 24px; padding: 30px 28px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
+    .splice-natural-intro { margin: 0; color: #24272C; font-size: 17px; line-height: 30px; }
+    .splice-natural-intro strong { font-weight: 600; }
+    .splice-reference-flow { display: flex; margin-top: 26px; flex-wrap: wrap; align-items: center; gap: 18px 24px; }
+    .splice-inline-reference { display: inline-flex; min-width: 0; align-items: center; gap: 11px; }
+    .splice-inline-image { display: inline-flex; width: 96px; height: 80px; padding: 5px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
+    .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
+    .splice-inline-symbol { color: #59616D; font-size: 19px; }
+    .splice-inline-note { max-width: 250px; color: #30343A; font-size: 15px; line-height: 24px; }
+    .splice-inline-punctuation { color: #30343A; font-size: 17px; }
+    .splice-standalone-note { margin: 22px 0 0; color: #3D424A; font-size: 15px; line-height: 25px; }
+    .splice-tag-groups { display: flex; margin-top: 34px; flex-direction: column; gap: 20px; }
+    .splice-tag-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #303133; }
+    .splice-tag-line__label { margin-right: 2px; font-size: 16px; font-weight: 600; white-space: nowrap; }
+    .splice-tag-empty { color: #A4A8AF; font-size: 14px; }
+    .splice-token { display: inline-flex; height: 36px; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid #DDE1E8; border-radius: 8px; color: #30343A; background: #fff; font-size: 14px; }
+    button.splice-token { cursor: pointer; }
+    button.splice-token:hover { border-color: #AEB7C3; background: #FAFBFC; }
+    button.splice-token:disabled { cursor: default; opacity: .7; }
+    .splice-token__close { color: #657080; font-size: 16px; font-weight: 400; }
+    .splice-token--locked { gap: 7px; }
+    .splice-token--locked i { color: #59616D; }
     .splice-editor { margin: 0; }
     .splice-editor .el-textarea__inner { min-height: 390px !important; padding: 18px; border-radius: 8px; font-size: 15px; line-height: 1.8; }
-    .splice-reference-heading { display: flex; margin-bottom: 18px; align-items: center; justify-content: space-between; color: #303133; font-size: 18px; font-weight: 600; }
-    .splice-reference-count { color: #858A93; font-size: 13px; font-weight: 400; }
-    .splice-reference-list { display: flex; flex-direction: column; gap: 14px; }
-    .splice-reference-item { display: grid; min-height: 132px; grid-template-columns: 128px minmax(0,1fr); gap: 16px; padding: 10px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
-    .splice-reference-image { width: 128px; height: 112px; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #F7F8FA; }
-    .splice-reference-image img { width: 100%; height: 100%; object-fit: cover; }
-    .splice-reference-body { display: flex; min-width: 0; padding: 3px 2px; flex-direction: column; justify-content: center; align-items: flex-start; }
-    .splice-reference-tag { display: inline-flex; height: 24px; align-items: center; padding: 0 9px; border-radius: 7px; color: #6C7179; background: #F1F2F4; font-size: 12px; }
-    .splice-reference-note { margin: 12px 0 0; color: #737983; font-size: 14px; line-height: 22px; word-break: break-word; }
-    .splice-reference-note__label { color: #737983; }
-    .splice-competitor-note { padding: 16px; border: 1px solid #E1E5EC; border-radius: 10px; background: #FAFBFC; }
-    .splice-reference-empty { display: flex; min-height: 260px; align-items: center; justify-content: center; color: #A3A7AE; font-size: 14px; text-align: center; }
     .splice-card__footer { display: flex; margin-top: 16px; align-items: center; color: #9AA0AA; font-size: 13px; }
     .reference-image-dialog .el-dialog__body { padding-top: 10px; }
     .reference-image-preview { display: flex; min-height: 420px; align-items: center; justify-content: center; overflow: hidden; border-radius: 10px; background: #F5F7FA; }
@@ -455,28 +454,25 @@
                         <el-button v-else type="primary" @click="saveSplicedPrompt">保存方案</el-button>
                       </div>
                     </div>
-                    <div class="splice-workspace">
-                      <section class="splice-text-panel">
-                        <div class="splice-section-heading">文字提示词</div>
-                        <template v-if="!splicedEditing">
-                          <section v-for="section in spliceTextSections" :key="section.key" class="splice-text-section">
-                            <div class="splice-text-section__title">{{ section.title }}</div>
-                            <p class="splice-text-section__content" :class="{'is-empty':section.empty}">{{ section.content }}</p>
-                          </section>
-                        </template>
-                        <el-input v-else class="splice-editor" v-model="splicedPrompt" type="textarea" :rows="12" maxlength="2000" show-word-limit data-field-description="拼接方案：按设计目标、创意与结构、材质与工艺、禁止项编辑；最多 2000 字；保存后作为后续生成创意的提示词。"></el-input>
-                      </section>
-                      <aside class="splice-reference-panel">
-                        <div class="splice-reference-heading"><span>参考素材</span><span class="splice-reference-count">{{ spliceReferenceCount }} 项</span></div>
-                        <div v-if="spliceReferenceCount" class="splice-reference-list">
-                          <article v-for="item in spliceReferenceMaterials" :key="item.key" class="splice-reference-item">
-                            <div class="splice-reference-image"><img :src="item.preview" :alt="item.label+'参考图'"></div>
-                            <div class="splice-reference-body"><span class="splice-reference-tag">{{ item.label }}</span><p class="splice-reference-note"><span class="splice-reference-note__label">说明：</span>{{ item.note }}</p></div>
-                          </article>
-                          <article v-if="showStandaloneCompetitorNote" class="splice-competitor-note"><span class="splice-reference-tag">竞品说明</span><p class="splice-reference-note"><span class="splice-reference-note__label">说明：</span>{{ planning.competitor }}</p></article>
+                    <div class="splice-prompt-surface">
+                      <template v-if="!splicedEditing">
+                        <p class="splice-natural-intro">请设计一款<strong>{{ planning.category }}</strong>，企划要求是{{ planning.need.trim().replace(/[。；;]+$/,'') }}；{{ spliceReferenceCount ? '参考素材：' : '暂未添加参考图片。' }}</p>
+                        <div v-if="spliceReferenceMaterials.length" class="splice-reference-flow">
+                          <span v-for="item in spliceReferenceMaterials" :key="item.key" class="splice-inline-reference">
+                            <button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewPlanningImage(item.key)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
+                            <span class="splice-inline-symbol">×</span>
+                            <span class="splice-inline-note">{{ item.note }}</span>
+                            <span class="splice-inline-punctuation">；</span>
+                          </span>
                         </div>
-                        <div v-else class="splice-reference-empty"><div><i class="el-icon-picture-outline" style="display:block;margin-bottom:10px;font-size:28px"></i>左侧上传参考图片或填写竞品说明后，将在这里展示</div></div>
-                      </aside>
+                        <p v-if="showStandaloneCompetitorNote" class="splice-standalone-note"><strong>竞品文字参考：</strong>{{ planning.competitor }}</p>
+                        <div class="splice-tag-groups">
+                          <div class="splice-tag-line"><span class="splice-tag-line__label">创意方向：</span><button v-for="item in planning.directions" :key="'direction-'+item" type="button" class="splice-token" :disabled="isViewer" @click="removeSpliceTag('directions',item)">{{ item }}<span class="splice-token__close">×</span></button><span v-if="!planning.directions.length" class="splice-tag-empty">未选择</span></div>
+                          <div class="splice-tag-line"><span class="splice-tag-line__label">工艺、面料与配色约束：</span><button v-for="item in planning.constraints" :key="'constraint-'+item" type="button" class="splice-token" :disabled="isViewer" @click="removeSpliceTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button><span v-if="!planning.constraints.length" class="splice-tag-empty">未选择</span></div>
+                          <div class="splice-tag-line"><span class="splice-tag-line__label">禁止项：</span><span v-for="item in planning.forbidden" :key="'forbidden-'+item" class="splice-token splice-token--locked"><i class="el-icon-lock"></i>{{ item }}</span><span v-if="!planning.forbidden.length" class="splice-tag-empty">未设置</span></div>
+                        </div>
+                      </template>
+                      <el-input v-else class="splice-editor" v-model="splicedPrompt" type="textarea" :rows="12" maxlength="2000" show-word-limit data-field-description="拼接方案：自然组合品类、企划需求、参考素材说明、创意方向、工艺约束和禁止项；最多 2000 字；保存后作为后续生成创意的提示词。"></el-input>
                     </div>
                     <div class="splice-card__footer"><span>来源：品类选择、企划需求、参考图片、参考竞品及文字说明、创意方向、工艺约束、禁止项（仅包含非空字段）</span></div>
                   </article>
@@ -685,8 +681,7 @@
         isViewer: function(){ return this.roleMode==='viewer'; },
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
-        spliceTextSections: function(){ var values={};this.splicedPrompt.split(/\n+/).forEach(function(line){var index=line.indexOf('：');if(index>0)values[line.slice(0,index).trim()]=line.slice(index+1).trim();});return [{key:'goal',title:'设计目标',content:values['设计目标']||'未填写',empty:!values['设计目标']},{key:'creative',title:'创意与结构',content:values['创意与结构']||'未填写',empty:!values['创意与结构']},{key:'craft',title:'材质与工艺',content:values['材质与工艺']||'未填写',empty:!values['材质与工艺']},{key:'forbidden',title:'禁止项',content:values['禁止项']||'未填写',empty:!values['禁止项']}]; },
-        spliceReferenceMaterials: function(){ var self=this;return this.imageKinds.filter(function(kind){return Boolean(self.planning.images[kind.key]);}).map(function(kind){var note=(self.planning.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'){var competitorNote=self.planning.competitor.trim();if(note&&competitorNote)note=note+'；竞品说明：'+competitorNote;else if(competitorNote)note=competitorNote;}return {key:kind.key,label:kind.label,preview:self.planning.imagePreviews[kind.key]||self.referencePlaceholder(kind.label),note:note||'未填写参考说明'};}); },
+        spliceReferenceMaterials: function(){ var self=this;return this.imageKinds.filter(function(kind){return Boolean(self.planning.images[kind.key]);}).map(function(kind){var note=(self.planning.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'&&!note)note=self.planning.competitor.trim();return {key:kind.key,label:kind.label,preview:self.planning.imagePreviews[kind.key]||self.referencePlaceholder(kind.label),note:note||('作为'+kind.label+'参考素材')};}); },
         showStandaloneCompetitorNote: function(){ return Boolean(this.planning.competitor.trim()&&!this.planning.images.competitor); },
         spliceReferenceCount: function(){ return this.spliceReferenceMaterials.length+(this.showStandaloneCompetitorNote?1:0); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
@@ -698,6 +693,9 @@
         pagedCreatives: function(){ return this.filteredCreatives.slice((this.creativePage-1)*this.creativePageSize,this.creativePage*this.creativePageSize); },
         filteredHistory: function(){ var self=this; return this.historyRows.filter(function(row){var key=self.historyFilters.keyword.trim();var byKey=!key||[row.name,row.creator,row.category].join(' ').indexOf(key)!==-1;var byCategory=!self.historyFilters.category||row.category===self.historyFilters.category;var byStatus=self.historyFilters.status==='全部'||row.status===self.historyFilters.status;return byKey&&byCategory&&byStatus;}); },
         pagedHistory: function(){ return this.filteredHistory.slice((this.historyPage-1)*this.historyPageSize,this.historyPage*this.historyPageSize); }
+      },
+      watch: {
+        planning: { deep: true, handler: function(){ if(this.promptMode==='splice'&&this.hasSplicedPrompt&&!this.splicedEditing){this.splicedPrompt=this.buildSplicedPrompt();this.persistPromptResults();} } }
       },
       created: function(){ this.restorePromptResults(); },
       methods: {
@@ -725,7 +723,7 @@
         previewPlanningImage: function(key){ var preview=this.planning.imagePreviews[key];if(!preview)return;var kind=this.imageKinds.find(function(item){return item.key===key;});this.previewImage=preview;this.previewImageName=(kind?kind.label+'参考图片':'参考图片');this.previewDialogVisible=true; },
         removePlanningImage: function(key){ var preview=this.planning.imagePreviews[key];if(preview&&preview.indexOf('blob:')===0&&window.URL)try{URL.revokeObjectURL(preview);}catch(e){}var kind=this.imageKinds.find(function(item){return item.key===key;});this.$set(this.planning.images,key,'');this.$set(this.planning.imagePreviews,key,'');this.$set(this.planning.imageNotes,key,'');if(this.previewImage===preview){this.previewDialogVisible=false;this.previewImage='';this.previewImageName='';}if(this.promptMode==='splice'&&this.hasSplicedPrompt)this.splicedPrompt=this.buildSplicedPrompt();this.persistPromptResults();this.planningMessage=(kind?kind.label:'参考')+'图片已删除。';this.planningMessageType='success';this.$message.success(this.planningMessage); },
         persistPromptResults: function(){ try{localStorage.setItem(this.promptStorageKey,JSON.stringify({directions:this.directions,splicedPrompt:this.splicedPrompt,savedAt:new Date().toISOString()}));}catch(e){} },
-        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(typeof saved.splicedPrompt==='string'&&saved.splicedPrompt.indexOf('设计目标：')===0)this.splicedPrompt=saved.splicedPrompt;}catch(e){} },
+        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(typeof saved.splicedPrompt==='string'&&(saved.splicedPrompt.indexOf('设计目标：')===0||saved.splicedPrompt.indexOf('请设计一款')===0))this.splicedPrompt=saved.splicedPrompt;}catch(e){} },
         runCurrentPromptMode: function(){ if(this.promptMode==='splice')this.openSplicedPrompt();else this.generatePrompts(); },
         switchPromptMode: function(mode){
           if(mode===this.promptMode)return;
@@ -749,9 +747,10 @@
         },
         referencePlaceholder: function(label){ var svg='<svg xmlns="http://www.w3.org/2000/svg" width="320" height="260"><rect width="320" height="260" fill="#F5F7FA"/><path d="M65 190l60-70 42 45 34-37 55 62H65z" fill="#DDE5EF"/><circle cx="218" cy="76" r="24" fill="#CBD8E7"/><text x="160" y="232" text-anchor="middle" font-family="PingFang SC,sans-serif" font-size="24" fill="#7D8794">'+label+'参考图</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg); },
         combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key]){var note=(p.imageNotes[kind.key]||'').trim();imgs.push(kind.label+'：'+p.images[kind.key]+(note?'（'+note+'）':''));}});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
-        buildSplicedPrompt: function(){ var p=this.planning;var need=p.need.trim().replace(/[。；;]+$/,'');var target='围绕'+p.category+'品类，'+need+'。';var lines=['设计目标：'+target];if(p.directions.length)lines.push('创意与结构：'+p.directions.join('；'));if(p.constraints.length)lines.push('材质与工艺：'+p.constraints.join('；'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());this.imageKinds.forEach(function(kind){if(!p.images[kind.key])return;var note=(p.imageNotes[kind.key]||'').trim();lines.push('参考图片（'+kind.label+'）：'+p.images[kind.key]+(note?'；参考说明：'+note:''));});return lines.join('\n'); },
+        buildSplicedPrompt: function(){ var p=this.planning;var need=p.need.trim().replace(/[。；;]+$/,'');var lines=['请设计一款'+p.category+'，企划要求是'+need+'。'];var refs=[];var hasCompetitorImage=Boolean(p.images.competitor);this.imageKinds.forEach(function(kind){if(!p.images[kind.key])return;var note=(p.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'&&!note)note=p.competitor.trim();if(!note)note='作为'+kind.label+'参考素材';refs.push('参考'+kind.label+'图片，'+note);});if(refs.length)lines.push('参考素材：'+refs.join('；')+'。');if(p.competitor.trim()&&!hasCompetitorImage)lines.push('竞品文字参考：'+p.competitor.trim()+'。');if(p.directions.length)lines.push('创意方向：'+p.directions.join('、')+'。');if(p.constraints.length)lines.push('工艺、面料与配色约束：'+p.constraints.join('、')+'。');if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、')+'。');return lines.join('\n'); },
         openSplicedPrompt: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}if(!this.validatePlanningRequired())return;this.splicedPrompt=this.buildSplicedPrompt();this.splicedEditing=false;this.promptMode='splice';this.planningStep=Math.max(this.planningStep,1);this.planningMessage='已按左侧非空字段直接拼接为 1 个方案；AI 方案保持保存。';this.planningMessageType='success';this.persistPromptResults();this.$message.success('拼接提示词已生成并保存'); },
         saveSplicedPrompt: function(){ if(!this.splicedPrompt.trim()){this.$message.error('请输入方案内容');return;}this.splicedEditing=false;this.persistPromptResults();this.$message.success('拼接方案已保存'); },
+        removeSpliceTag: function(group,item){ if(this.isViewer)return;this.$set(this.planning,group,this.planning[group].filter(function(value){return value!==item;}));if(this.hasSplicedPrompt)this.splicedPrompt=this.buildSplicedPrompt();this.persistPromptResults(); },
         copyText: function(text,successMessage){ var self=this;function fallback(){var area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');self.$message.success(successMessage);}catch(e){self.$message.error('复制失败，请重试');}document.body.removeChild(area);}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){self.$message.success(successMessage);}).catch(fallback);}else{fallback();} },
         validatePlanningRequired: function(){
           if(!this.planning.category){ this.$message.error('请选择品类'); return false; }
