@@ -176,9 +176,13 @@
     .reference-image-row { display: grid; grid-template-columns: 100px 1fr; min-height: 66px; align-items: center; gap: 14px; border-top: 1px solid #F0F1F3; }
     .reference-image-row:first-of-type { border-top: 0; }
     .reference-image-label { color: #4E5157; font-size: 15px; }
-    .reference-upload { display: flex; min-height: 54px; align-items: center; gap: 14px; padding: 7px 10px; border: 1px solid #ECEEF2; border-radius: 10px; }
+    .reference-upload { display: grid; min-height: 66px; grid-template-columns: 52px minmax(0,1fr); align-items: center; gap: 12px; padding: 7px 10px; border: 1px solid #ECEEF2; border-radius: 10px; }
+    .reference-upload__trigger { width: 52px; }
     .reference-upload__thumb { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; overflow: hidden; border: 1px dashed #DADDE3; border-radius: 8px; color: #2F3135; background: #FAFAFB; font-size: 24px; }
-    .reference-upload__name { color: #B2B5BA; font-size: 14px; }
+    .reference-upload__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .reference-upload__fields { min-width: 0; }
+    .reference-upload__name { display: block; margin-bottom: 5px; overflow: hidden; color: #858A93; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .reference-upload__fields .el-input__inner { height: 30px; border: 0; padding: 0; color: #4A4E55; background: transparent; font-size: 13px; }
     .prompt-column { position: sticky; top: 108px; min-height: 900px; padding: 22px 24px; border: 1px solid #F0F1F3; border-radius: 14px; background: #fff; }
     .prompt-column__head { display: flex; margin-bottom: 16px; align-items: center; justify-content: space-between; gap: 18px; color: #565A61; }
     .prompt-column__dot { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--sw-primary); }
@@ -212,9 +216,32 @@
     .splice-card__actions .el-button { height: 38px; border-radius: 8px; font-size: 15px; }
     .splice-card__actions .splice-action-button.el-button { min-width: 116px; height: 44px; padding: 0 20px; border: 1px solid #D9DDE5; border-radius: 10px; color: #303133; background: #fff; font-size: 15px; font-weight: 400; }
     .splice-card__actions .splice-action-button.el-button:hover, .splice-card__actions .splice-action-button.el-button:focus { border-color: #B9C1CC; color: #303133; background: #FAFBFC; }
-    .splice-content { min-height: 300px; margin-top: 24px; padding: 24px; border: 1px solid #E1E5EC; border-radius: 8px; color: #303133; background: #fff; font-size: 17px; line-height: 2; white-space: pre-wrap; }
-    .splice-editor { margin-top: 24px; }
-    .splice-editor .el-textarea__inner { min-height: 300px !important; padding: 22px; border-radius: 8px; font-size: 17px; line-height: 2; }
+    .splice-workspace { display: grid; min-height: 510px; margin-top: 24px; grid-template-columns: minmax(0,1.2fr) minmax(320px,.9fr); overflow: hidden; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
+    .splice-text-panel, .splice-reference-panel { padding: 26px 28px; }
+    .splice-reference-panel { border-left: 1px solid #E1E5EC; }
+    .splice-section-heading { display: flex; margin-bottom: 20px; align-items: center; gap: 10px; color: #303133; font-size: 18px; font-weight: 600; }
+    .splice-auto-chip { display: inline-flex; height: 24px; align-items: center; padding: 0 9px; border-radius: 7px; color: #7B818A; background: #F0F1F3; font-size: 12px; font-weight: 400; }
+    .splice-text-section { padding: 0 0 22px; border-bottom: 1px solid #E8EAF0; }
+    .splice-text-section + .splice-text-section { padding-top: 22px; }
+    .splice-text-section:last-child { padding-bottom: 0; border-bottom: 0; }
+    .splice-text-section__title { display: flex; margin-bottom: 11px; align-items: center; gap: 10px; color: #303133; font-size: 16px; font-weight: 600; }
+    .splice-text-section__title::before { width: 3px; height: 18px; border-radius: 2px; background: var(--sw-primary); content: ""; }
+    .splice-text-section__content { margin: 0; color: #3F434A; font-size: 15px; line-height: 25px; }
+    .splice-text-section__content.is-empty { color: #A4A8AF; }
+    .splice-editor { margin: 0; }
+    .splice-editor .el-textarea__inner { min-height: 390px !important; padding: 18px; border-radius: 8px; font-size: 15px; line-height: 1.8; }
+    .splice-reference-heading { display: flex; margin-bottom: 18px; align-items: center; justify-content: space-between; color: #303133; font-size: 18px; font-weight: 600; }
+    .splice-reference-count { color: #858A93; font-size: 13px; font-weight: 400; }
+    .splice-reference-list { display: flex; flex-direction: column; gap: 14px; }
+    .splice-reference-item { display: grid; min-height: 132px; grid-template-columns: 128px minmax(0,1fr); gap: 16px; padding: 10px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
+    .splice-reference-image { width: 128px; height: 112px; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #F7F8FA; }
+    .splice-reference-image img { width: 100%; height: 100%; object-fit: cover; }
+    .splice-reference-body { min-width: 0; padding: 3px 2px; }
+    .splice-reference-tag { display: inline-flex; height: 24px; align-items: center; padding: 0 9px; border-radius: 7px; color: #6C7179; background: #F1F2F4; font-size: 12px; }
+    .splice-reference-title { margin: 10px 0 7px; color: #303133; font-size: 16px; font-weight: 600; }
+    .splice-reference-note { margin: 0; color: #737983; font-size: 14px; line-height: 22px; word-break: break-word; }
+    .splice-competitor-note { padding: 16px; border: 1px solid #E1E5EC; border-radius: 10px; background: #FAFBFC; }
+    .splice-reference-empty { display: flex; min-height: 260px; align-items: center; justify-content: center; color: #A3A7AE; font-size: 14px; text-align: center; }
     .splice-card__footer { display: flex; margin-top: 16px; align-items: center; justify-content: space-between; gap: 18px; color: #9AA0AA; font-size: 13px; }
     .splice-saved { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
     .prompt-initial-empty { display: flex; min-height: 820px; align-items: center; justify-content: center; color: #8B9098; background: #fff; text-align: center; }
@@ -373,10 +400,15 @@
                   <h2 class="reference-form-card__title">参考图片</h2>
                   <div v-for="kind in imageKinds" :key="kind.key" class="reference-image-row">
                     <div class="reference-image-label">{{ kind.label }}（{{ planning.images[kind.key] ? '1/1' : '0/1' }}）</div>
-                    <el-upload class="reference-upload" action="#" :auto-upload="false" :show-file-list="false" :disabled="isViewer" :on-change="function(file){setImage(kind.key,file)}">
-                      <span class="reference-upload__thumb"><i :class="planning.images[kind.key] ? 'el-icon-picture-outline' : 'el-icon-plus'"></i></span>
-                      <span class="reference-upload__name" :data-field-description="kind.label+'图片：选填；每组最多 1 张；复制时只包含类型和文件名。'">{{ planning.images[kind.key] || '填写说明' }}</span>
-                    </el-upload>
+                    <div class="reference-upload">
+                      <el-upload class="reference-upload__trigger" action="#" accept="image/*" :auto-upload="false" :show-file-list="false" :disabled="isViewer" :on-change="function(file){setImage(kind.key,file)}">
+                        <span class="reference-upload__thumb"><img v-if="planning.imagePreviews[kind.key]" :src="planning.imagePreviews[kind.key]" :alt="kind.label+'参考图'"><i v-else :class="planning.images[kind.key] ? 'el-icon-picture-outline' : 'el-icon-plus'"></i></span>
+                      </el-upload>
+                      <div class="reference-upload__fields">
+                        <span class="reference-upload__name" :data-field-description="kind.label+'图片：选填；每组最多 1 张；上传后在拼接方案右侧展示缩略图。'">{{ planning.images[kind.key] || '点击左侧方框上传图片' }}</span>
+                        <el-input v-model="planning.imageNotes[kind.key]" maxlength="100" :disabled="isViewer" :placeholder="'填写'+kind.label+'参考说明（选填）'"></el-input>
+                      </div>
+                    </div>
                   </div>
                 </section>
 
@@ -412,8 +444,29 @@
                         <el-button v-else type="primary" @click="saveSplicedPrompt">保存方案</el-button>
                       </div>
                     </div>
-                    <div v-if="!splicedEditing" class="splice-content">{{ splicedPrompt }}</div>
-                    <el-input v-else class="splice-editor" v-model="splicedPrompt" type="textarea" :rows="10" maxlength="2000" show-word-limit data-field-description="拼接方案：可编辑；最多 2000 字；保存后作为后续生成创意的提示词。"></el-input>
+                    <div class="splice-workspace">
+                      <section class="splice-text-panel">
+                        <div class="splice-section-heading">文字提示词 <span class="splice-auto-chip">自动整理</span></div>
+                        <template v-if="!splicedEditing">
+                          <section v-for="section in spliceTextSections" :key="section.key" class="splice-text-section">
+                            <div class="splice-text-section__title">{{ section.title }}</div>
+                            <p class="splice-text-section__content" :class="{'is-empty':section.empty}">{{ section.content }}</p>
+                          </section>
+                        </template>
+                        <el-input v-else class="splice-editor" v-model="splicedPrompt" type="textarea" :rows="12" maxlength="2000" show-word-limit data-field-description="拼接方案：按设计目标、创意与结构、材质与工艺、禁止项编辑；最多 2000 字；保存后作为后续生成创意的提示词。"></el-input>
+                      </section>
+                      <aside class="splice-reference-panel">
+                        <div class="splice-reference-heading"><span>参考素材</span><span class="splice-reference-count">{{ spliceReferenceCount }} 项</span></div>
+                        <div v-if="spliceReferenceCount" class="splice-reference-list">
+                          <article v-for="item in spliceReferenceMaterials" :key="item.key" class="splice-reference-item">
+                            <div class="splice-reference-image"><img :src="item.preview" :alt="item.label+'参考图'"></div>
+                            <div class="splice-reference-body"><span class="splice-reference-tag">{{ item.label }}</span><h3 class="splice-reference-title">{{ item.title }}</h3><p class="splice-reference-note">{{ item.note }}</p></div>
+                          </article>
+                          <article v-if="showStandaloneCompetitorNote" class="splice-competitor-note"><span class="splice-reference-tag">竞品说明</span><h3 class="splice-reference-title">文字参考</h3><p class="splice-reference-note">{{ planning.competitor }}</p></article>
+                        </div>
+                        <div v-else class="splice-reference-empty"><div><i class="el-icon-picture-outline" style="display:block;margin-bottom:10px;font-size:28px"></i>左侧上传参考图片或填写竞品说明后，将在这里展示</div></div>
+                      </aside>
+                    </div>
                     <div class="splice-card__footer"><span>来源：品类选择、企划需求、参考图片、参考竞品及文字说明、创意方向、工艺约束、禁止项（仅包含非空字段）</span><span class="splice-saved"><i class="el-icon-circle-check"></i>{{ splicedEditing ? '编辑中' : '已保存' }}</span></div>
                   </article>
                   <div v-else class="prompt-initial-empty" data-flow-step="result"><div><span class="prompt-empty-logo" aria-hidden="true"></span><strong>请先填写左侧需求</strong><p>点击「拼接提示词」按钮，将左侧信息拼接为1个文字方案</p></div></div>
@@ -587,7 +640,7 @@
           activePrompt: '', activePromptItemId: '', promptMode: 'ai', splicedPrompt: '', splicedEditing: false, promptStorageKey: 'ai-product-design-v12-empty-state-prompt-results', imageScenario: 'success', creativeMessage: '本次计划生成 3 张，成功 3 张，失败 0 张。', creativeMessageType: 'success', failedImageCount: 0,
           categories: ['内裤','文胸','袜子','吊带'], directionOptions: ['少女感','清新耐看','几何撞色','休闲字母'], constraintOptions: ['车缝','随心裁','精梳棉混纺','基础色'], forbiddenOptions: ['复杂印花','浮夸 Logo','禁止与竞品完全一致','禁止人体穿着展示','禁止文字内容','禁止浮夸Logo','禁止竞品复刻','禁止非指定品牌标识'],
           imageKinds: [{key:'sketch',label:'线稿'},{key:'competitor',label:'竞品'},{key:'creative',label:'创意'}],
-          planning: { category:'内裤', need:'', competitor:'', directions:[], constraints:[], forbidden:[], images:{sketch:'',competitor:'',creative:''} },
+          planning: { category:'内裤', need:'', competitor:'', directions:[], constraints:[], forbidden:[], images:{sketch:'',competitor:'',creative:''}, imagePreviews:{sketch:'',competitor:'',creative:''}, imageNotes:{sketch:'',competitor:'',creative:''} },
           directionTemplates: [
             {id:'DIR-A',code:'A',name:'清新浪点提花中筒袜',match:95,selected:true,role:'资深内衣产品设计师',style:'年轻活泼、清新耐看。袜身主体为纯色，脚踝至小腿中部区域采用细密的局部提花波点图案，袜口为罗纹收边设计。',colors:'奶白色、浅灰色、藏青色',shape:'中筒袜版型，长度覆盖脚踝至小腿肚下方，袜口采用高弹力罗纹设计，贴合腿部曲线不勒腿。',material:'主体采用75%精梳棉+20%锦纶+5%氨纶混纺纱线，保证透气吸汗与高弹力。',idea:'以“清新耐看”为核心，通过局部小波点提花打破纯色袜子的单调感，波点图案规则排列，辨识度高且不过于复杂。',prompt:'方案 A｜清新浪点提花中筒袜\n角色：资深内衣产品设计师\n风格：年轻活泼、清新耐看\n配色：奶白色、浅灰色、藏青色'},
             {id:'DIR-B',code:'B',name:'几何撞色条纹中筒袜',match:92,selected:true,role:'资深内衣产品设计师',style:'年轻活力、清新简约。袜身采用大色块几何拼接与细条纹撞色设计，整体视觉冲击力强但线条干净利落。',colors:'米白色、薄荷绿、柠檬黄',shape:'标准中筒长度，袜筒部分采用竖向细条纹提花，拉长腿部视觉比例；袜口采用宽边罗纹设计。',material:'采用80%精梳棉+15%聚酯纤维+5%氨纶，提升图案色彩的持久度与耐磨性。',idea:'通过几何色块与细条纹的撞色组合，营造年轻活泼的视觉效果。色彩选择低饱和度的清新色系，避免色彩过于艳丽浮夸。',prompt:'方案 B｜几何撞色条纹中筒袜\n角色：资深内衣产品设计师\n风格：年轻活力、清新简约\n配色：米白色、薄荷绿、柠檬黄'},
@@ -617,6 +670,10 @@
         isViewer: function(){ return this.roleMode==='viewer'; },
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
+        spliceTextSections: function(){ var values={};this.splicedPrompt.split(/\n+/).forEach(function(line){var index=line.indexOf('：');if(index>0)values[line.slice(0,index).trim()]=line.slice(index+1).trim();});return [{key:'goal',title:'设计目标',content:values['设计目标']||'未填写',empty:!values['设计目标']},{key:'creative',title:'创意与结构',content:values['创意与结构']||'未填写',empty:!values['创意与结构']},{key:'craft',title:'材质与工艺',content:values['材质与工艺']||'未填写',empty:!values['材质与工艺']},{key:'forbidden',title:'禁止项',content:values['禁止项']||'未填写',empty:!values['禁止项']}]; },
+        spliceReferenceMaterials: function(){ var self=this;var titleMap={sketch:'版型结构',competitor:'工艺与配色',creative:'视觉氛围'};return this.imageKinds.filter(function(kind){return Boolean(self.planning.images[kind.key]);}).map(function(kind){var note=(self.planning.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'){var competitorNote=self.planning.competitor.trim();if(note&&competitorNote)note=note+'；竞品说明：'+competitorNote;else if(competitorNote)note=competitorNote;}return {key:kind.key,label:kind.label,title:titleMap[kind.key],preview:self.planning.imagePreviews[kind.key]||self.referencePlaceholder(kind.label),note:note||'未填写参考说明'};}); },
+        showStandaloneCompetitorNote: function(){ return Boolean(this.planning.competitor.trim()&&!this.planning.images.competitor); },
+        spliceReferenceCount: function(){ return this.spliceReferenceMaterials.length+(this.showStandaloneCompetitorNote?1:0); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
         promptActionLabel: function(){ return this.promptMode==='ai' ? (this.directions.length ? '重新生成提示词' : '生成提示词') : '拼接提示词'; },
         alternatePromptActionLabel: function(){ return this.promptMode==='ai' ? '拼接提示词' : '生成提示词'; },
@@ -641,7 +698,7 @@
           this.failedImageCount=0;
           this.showRetryButton=false;
           this.planningStep=0;
-          this.planning={category:'内裤',need:'',competitor:'',directions:[],constraints:[],forbidden:[],images:{sketch:'',competitor:'',creative:''}};
+          this.planning={category:'内裤',need:'',competitor:'',directions:[],constraints:[],forbidden:[],images:{sketch:'',competitor:'',creative:''},imagePreviews:{sketch:'',competitor:'',creative:''},imageNotes:{sketch:'',competitor:'',creative:''}};
           try{localStorage.removeItem(this.promptStorageKey);}catch(e){}
           this.planningMessage='已进入新设计，请填写企划需求后生成提示词。';
           this.planningMessageType='success';
@@ -649,9 +706,9 @@
         },
         handleRoleChange: function(){ this.$message[this.isViewer?'warning':'success'](this.isViewer?'已切换只读访客：生成、复制、精修和继续设计不可用':'已切换设计师角色'); },
         toggleDirection: function(item){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}item.selected=!item.selected;this.persistPromptResults(); },
-        setImage: function(key,file){ this.$set(this.planning.images,key,file.name);this.planningMessage='已选择'+file.name+'，关键操作后将自动保存。';this.planningMessageType='success'; },
+        setImage: function(key,file){ var oldPreview=this.planning.imagePreviews[key];if(oldPreview&&oldPreview.indexOf('blob:')===0&&window.URL)try{URL.revokeObjectURL(oldPreview);}catch(e){}var raw=file.raw||file;var preview=file.url||'';if(!preview&&raw&&window.URL&&URL.createObjectURL)try{preview=URL.createObjectURL(raw);}catch(e){}this.$set(this.planning.images,key,file.name||'已上传图片');this.$set(this.planning.imagePreviews,key,preview);this.planningMessage='已选择'+(file.name||'图片')+'，可继续填写参考说明。';this.planningMessageType='success'; },
         persistPromptResults: function(){ try{localStorage.setItem(this.promptStorageKey,JSON.stringify({directions:this.directions,splicedPrompt:this.splicedPrompt,savedAt:new Date().toISOString()}));}catch(e){} },
-        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(typeof saved.splicedPrompt==='string')this.splicedPrompt=saved.splicedPrompt;}catch(e){} },
+        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(typeof saved.splicedPrompt==='string'&&saved.splicedPrompt.indexOf('设计目标：')===0)this.splicedPrompt=saved.splicedPrompt;}catch(e){} },
         runCurrentPromptMode: function(){ if(this.promptMode==='splice')this.openSplicedPrompt();else this.generatePrompts(); },
         switchPromptMode: function(mode){
           if(mode===this.promptMode)return;
@@ -673,8 +730,9 @@
             this.generatePrompts();
           }
         },
-        combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key])imgs.push(kind.label+'：'+p.images[kind.key]);});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
-        buildSplicedPrompt: function(){ var p=this.planning;var parts=[];if(p.need.trim())parts.push(p.need.trim().replace(/[。；;]+$/,''));else if(p.category)parts.push('设计一款'+p.category);var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key])imgs.push(kind.label+'图片“'+p.images[kind.key]+'”');});if(imgs.length)parts.push('参考'+imgs.join('、'));if(p.competitor.trim())parts.push('参考竞品及文字说明：'+p.competitor.trim().replace(/[。；;]+$/,''));if(p.directions.length)parts.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)parts.push('工艺 / 成本 / 面料约束：'+p.constraints.join('、'));if(p.forbidden.length)parts.push('禁止项：'+p.forbidden.join('、'));return parts.join('；')+'。'; },
+        referencePlaceholder: function(label){ var svg='<svg xmlns="http://www.w3.org/2000/svg" width="320" height="260"><rect width="320" height="260" fill="#F5F7FA"/><path d="M65 190l60-70 42 45 34-37 55 62H65z" fill="#DDE5EF"/><circle cx="218" cy="76" r="24" fill="#CBD8E7"/><text x="160" y="232" text-anchor="middle" font-family="PingFang SC,sans-serif" font-size="24" fill="#7D8794">'+label+'参考图</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg); },
+        combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key]){var note=(p.imageNotes[kind.key]||'').trim();imgs.push(kind.label+'：'+p.images[kind.key]+(note?'（'+note+'）':''));}});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
+        buildSplicedPrompt: function(){ var p=this.planning;var need=p.need.trim().replace(/[。；;]+$/,'');var target='围绕'+p.category+'品类，'+need+'。';var lines=['设计目标：'+target];if(p.directions.length)lines.push('创意与结构：'+p.directions.join('；'));if(p.constraints.length)lines.push('材质与工艺：'+p.constraints.join('；'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());this.imageKinds.forEach(function(kind){if(!p.images[kind.key])return;var note=(p.imageNotes[kind.key]||'').trim();lines.push('参考图片（'+kind.label+'）：'+p.images[kind.key]+(note?'；参考说明：'+note:''));});return lines.join('\n'); },
         openSplicedPrompt: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}if(!this.validatePlanningRequired())return;this.splicedPrompt=this.buildSplicedPrompt();this.splicedEditing=false;this.promptMode='splice';this.planningStep=Math.max(this.planningStep,1);this.planningMessage='已按左侧非空字段直接拼接为 1 个方案；AI 方案保持保存。';this.planningMessageType='success';this.persistPromptResults();this.$message.success('拼接提示词已生成并保存'); },
         saveSplicedPrompt: function(){ if(!this.splicedPrompt.trim()){this.$message.error('请输入方案内容');return;}this.splicedEditing=false;this.persistPromptResults();this.$message.success('拼接方案已保存'); },
         copyText: function(text,successMessage){ var self=this;function fallback(){var area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');self.$message.success(successMessage);}catch(e){self.$message.error('复制失败，请重试');}document.body.removeChild(area);}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){self.$message.success(successMessage);}).catch(fallback);}else{fallback();} },
