@@ -227,13 +227,12 @@
     .splice-content-rows { display: flex; margin-top: 26px; flex-direction: column; gap: 20px; }
     .splice-content-row { display: grid; grid-template-columns: max-content minmax(0,1fr); align-items: start; gap: 12px; color: #303133; }
     .splice-content-row__label { padding-top: 6px; font-size: 16px; font-weight: 400; line-height: 24px; white-space: nowrap; }
-    .splice-reference-flow { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
-    .splice-inline-reference { display: inline-flex; min-width: 0; align-items: center; gap: 12px; }
-    .splice-inline-image { display: inline-flex; width: 96px; height: 80px; padding: 5px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
+    .splice-reference-flow { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+    .splice-inline-reference { display: inline-flex; min-width: 0; align-items: center; gap: 8px; }
+    .splice-inline-image { display: inline-flex; width: 76px; height: 64px; flex: 0 0 76px; padding: 4px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
     .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
-    .splice-reference-divider { width: 1px; height: 48px; flex: 0 0 auto; background: #D9DDE5; }
-    .splice-inline-note { max-width: 250px; color: #30343A; font-size: 15px; line-height: 24px; }
-    .splice-inline-punctuation { color: #30343A; font-size: 17px; }
+    .splice-inline-note { max-width: 300px; color: #30343A; font-size: 15px; line-height: 24px; }
+    .splice-inline-punctuation { margin-left: -2px; color: #30343A; font-size: 16px; }
     .splice-text-reference-list { display: flex; margin-top: 22px; flex-direction: column; gap: 10px; }
     .splice-text-only-reference, .splice-standalone-note { margin: 0; color: #3D424A; font-size: 15px; line-height: 25px; }
     .splice-tag-groups { display: flex; margin-top: 34px; flex-direction: column; gap: 20px; }
@@ -245,18 +244,19 @@
     button.splice-token:hover { border-color: #AEB7C3; background: #FAFBFC; }
     button.splice-token:disabled { cursor: default; opacity: .7; }
     .splice-token__close { color: #657080; font-size: 16px; font-weight: 400; }
-    .splice-edit-intro { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: start; gap: 12px; color: #303133; font-size: 16px; line-height: 40px; }
-    .splice-edit-intro .el-textarea__inner { min-height: 70px !important; border-radius: 8px; line-height: 24px; }
-    .splice-edit-section { margin-top: 26px; }
-    .splice-edit-section__title { margin-bottom: 12px; color: #303133; font-size: 16px; font-weight: 400; }
-    .splice-edit-reference-list { display: flex; flex-direction: column; gap: 12px; }
-    .splice-edit-reference { display: grid; grid-template-columns: 96px minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 10px; border: 1px solid #E1E5EC; border-radius: 10px; background: #FAFBFC; }
-    .splice-edit-reference .el-input__inner { height: 40px; border-radius: 8px; }
-    .splice-edit-reference__delete.el-button { margin: 0; color: #8A9099; }
-    .splice-edit-reference__delete.el-button:hover { color: #F04444; }
-    .splice-edit-text-row { display: grid; grid-template-columns: 112px minmax(0,1fr) auto; align-items: center; gap: 10px; margin-top: 10px; }
-    .splice-edit-text-row__label { color: #60656F; font-size: 14px; }
-    .splice-edit-text-row .el-input__inner { height: 40px; border-radius: 8px; }
+    .splice-edit-intro { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 6px; color: #24272C; font-size: 17px; line-height: 30px; }
+    .splice-inline-need-input { min-width: 220px; flex: 1 1 300px; }
+    .splice-inline-edit-input { width: 190px; }
+    .splice-inline-need-input .el-input__inner, .splice-inline-edit-input .el-input__inner { height: 34px; border: 0; border-bottom: 1px solid #C9D0DA; border-radius: 0; padding: 0 4px; color: #24272C; background: transparent; font-size: 15px; box-shadow: none; }
+    .splice-inline-need-input .el-input__inner { font-size: 17px; }
+    .splice-inline-need-input .el-input__inner:focus, .splice-inline-edit-input .el-input__inner:focus { border-bottom-color: var(--sw-primary); }
+    .splice-edit-image-wrap { position: relative; display: inline-flex; flex: 0 0 auto; }
+    .splice-edit-image-remove { position: absolute; top: -7px; right: -7px; display: inline-flex; width: 21px; height: 21px; align-items: center; justify-content: center; border: 1px solid #D9DDE5; border-radius: 50%; color: #6F7680; background: #fff; font-size: 14px; line-height: 1; cursor: pointer; }
+    .splice-edit-image-remove:hover { border-color: #F04444; color: #F04444; }
+    .splice-edit-copy { color: #30343A; font-size: 15px; line-height: 34px; white-space: nowrap; }
+    .splice-edit-note-remove { display: inline-flex; width: 22px; height: 22px; align-items: center; justify-content: center; border: 0; border-radius: 50%; color: #8B919A; background: transparent; font-size: 16px; cursor: pointer; }
+    .splice-edit-note-remove:hover { color: #F04444; background: #FFF2F2; }
+    .splice-add-note.el-button { margin-left: 2px; padding: 0; color: var(--sw-primary); font-size: 13px; }
     .splice-edit-hint { margin: 18px 0 0; color: #909399; font-size: 13px; line-height: 22px; }
     .splice-editor { margin: 0; }
     .splice-editor .el-textarea__inner { min-height: 390px !important; padding: 18px; border-radius: 8px; font-size: 15px; line-height: 1.8; }
@@ -476,9 +476,8 @@
                             <div class="splice-reference-flow">
                               <span v-for="(item,index) in spliceReferenceGroups" :key="item.key" class="splice-inline-reference">
                                 <button v-if="item.preview" type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
-                                <span v-if="item.preview" class="splice-reference-divider" aria-hidden="true"></span>
                                 <span class="splice-inline-note">{{ item.description }}</span>
-                                <span v-if="index<spliceReferenceGroups.length-1" class="splice-inline-punctuation">；</span>
+                                <span class="splice-inline-punctuation">{{ index===spliceReferenceGroups.length-1 ? '。' : '；' }}</span>
                               </span>
                             </div>
                           </div>
@@ -488,13 +487,32 @@
                         </div>
                       </template>
                       <template v-else>
-                        <div class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><el-input v-model="spliceEditDraft.need" type="textarea" :rows="2" maxlength="500" show-word-limit></el-input></div>
-                        <section v-if="spliceEditDraft.references.length" class="splice-edit-section"><div class="splice-edit-section__title">参考图片</div><div class="splice-edit-reference-list"><div v-for="item in spliceEditDraft.references" :key="'edit-reference-'+item.key" class="splice-edit-reference"><button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button><span>{{ item.label }}参考图片</span><el-button class="splice-edit-reference__delete" type="text" icon="el-icon-delete" @click="removeSpliceDraftReference(item.key)">删除图片</el-button></div></div></section>
-                        <section v-if="spliceEditDraft.textReferences.length" class="splice-edit-section"><div class="splice-edit-section__title">参考说明</div><div v-for="item in spliceEditDraft.textReferences" :key="'edit-text-'+item.key" class="splice-edit-text-row"><span class="splice-edit-text-row__label">{{ item.label }}参考说明</span><el-input v-model="item.note" maxlength="300"></el-input><el-button type="text" icon="el-icon-close" aria-label="删除说明" @click="removeSpliceDraftTextReference(item.key)"></el-button></div></section>
-                        <div v-if="spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-tag-groups">
-                          <div v-if="spliceEditDraft.directions.length" class="splice-tag-line"><span class="splice-tag-line__label">创意方向：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.directions" :key="'direction-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('directions',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
-                          <div v-if="spliceEditDraft.constraints.length" class="splice-tag-line"><span class="splice-tag-line__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.constraints" :key="'constraint-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
-                          <div v-if="spliceEditDraft.forbidden.length" class="splice-tag-line"><span class="splice-tag-line__label">禁止项：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.forbidden" :key="'forbidden-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('forbidden',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
+                        <div class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><el-input v-model="spliceEditDraft.need" class="splice-inline-need-input" maxlength="500"></el-input><span>。</span></div>
+                        <div v-if="spliceEditReferenceGroups.length||spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-content-rows">
+                          <div v-if="spliceEditReferenceGroups.length" class="splice-content-row">
+                            <span class="splice-content-row__label">参考素材：</span>
+                            <div class="splice-reference-flow">
+                              <span v-for="(item,index) in spliceEditReferenceGroups" :key="'edit-inline-'+item.key" class="splice-inline-reference">
+                                <span v-if="item.preview" class="splice-edit-image-wrap">
+                                  <button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
+                                  <button type="button" class="splice-edit-image-remove" :aria-label="'删除'+item.label+'参考图片'" @click="removeSpliceDraftReference(item.key)">×</button>
+                                </span>
+                                <template v-if="item.noteItem">
+                                  <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span>
+                                  <el-input v-model="item.noteItem.note" class="splice-inline-edit-input" maxlength="300" placeholder="补充参考说明"></el-input>
+                                  <button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button>
+                                </template>
+                                <template v-else>
+                                  <span class="splice-inline-note">将该图片作为{{ item.label }}参考素材</span>
+                                  <el-button type="text" class="splice-add-note" @click="addSpliceDraftTextReference(item.key,item.label)">添加说明</el-button>
+                                </template>
+                                <span class="splice-inline-punctuation">{{ index===spliceEditReferenceGroups.length-1 ? '。' : '；' }}</span>
+                              </span>
+                            </div>
+                          </div>
+                          <div v-if="spliceEditDraft.directions.length" class="splice-content-row"><span class="splice-content-row__label">创意方向：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.directions" :key="'direction-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('directions',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
+                          <div v-if="spliceEditDraft.constraints.length" class="splice-content-row"><span class="splice-content-row__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.constraints" :key="'constraint-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
+                          <div v-if="spliceEditDraft.forbidden.length" class="splice-content-row"><span class="splice-content-row__label">禁止项：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.forbidden" :key="'forbidden-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('forbidden',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
                         </div>
                         <p class="splice-edit-hint">编辑只影响当前拼接方案，不会修改左侧原始企划输入。</p>
                       </template>
@@ -707,7 +725,8 @@
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
         hasSpliceSchemeReference: function(){ return Boolean(this.spliceScheme.references.length||this.spliceScheme.textReferences.length); },
-        spliceReferenceGroups: function(){ var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];var rawNote=note&&note.note?note.note.trim():'';var preview=image?image.preview:'';return {key:kind.key,label:kind.label,preview:preview,description:rawNote?(kind.label+' · '+rawNote):(preview?'作为'+kind.label+'参考素材':'')};}).filter(function(item){return Boolean(item.preview||item.description);}); },
+        spliceReferenceGroups: function(){ var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];var rawNote=note&&note.note?note.note.trim():'';var preview=image?image.preview:'';var description=rawNote?(preview?('参考该'+kind.label+'图片，'+rawNote):('关于'+kind.label+'参考，'+rawNote)):(preview?('将该图片作为'+kind.label+'参考素材'):'');return {key:kind.key,label:kind.label,preview:preview,description:description};}).filter(function(item){return Boolean(item.preview||item.description);}); },
+        spliceEditReferenceGroups: function(){ var images={};var notes={};this.spliceEditDraft.references.forEach(function(item){images[item.key]=item;});this.spliceEditDraft.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var noteItem=notes[kind.key];return {key:kind.key,label:kind.label,preview:image?image.preview:'',noteItem:noteItem||null};}).filter(function(item){return Boolean(item.preview||item.noteItem);}); },
         spliceSourceSummary: function(){ var sources=['品类选择','企划需求'];if(this.spliceScheme.references.length)sources.push('参考图片');if(this.spliceScheme.textReferences.length)sources.push('参考说明');if(this.spliceScheme.directions.length)sources.push('创意方向');if(this.spliceScheme.constraints.length)sources.push('工艺约束');if(this.spliceScheme.forbidden.length)sources.push('禁止项');return sources.join('、'); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
         promptActionLabel: function(){ return this.promptMode==='ai' ? (this.directions.length ? '重新生成提示词' : '生成提示词') : '拼接提示词'; },
@@ -794,7 +813,7 @@
           var images={},notes={};
           scheme.references.forEach(function(item){images[item.key]=item;});
           scheme.textReferences.forEach(function(item){notes[item.key]=item;});
-          var referenceParts=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key]&&notes[kind.key].note?notes[kind.key].note.trim():'';if(!image&&!note)return '';if(image&&note)return kind.label+'图片，'+note;if(image)return kind.label+'图片，作为'+kind.label+'参考素材';return kind.label+'说明，'+note;}).filter(Boolean);
+          var referenceParts=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key]&&notes[kind.key].note?notes[kind.key].note.trim():'';if(!image&&!note)return '';if(image&&note)return '参考该'+kind.label+'图片，'+note;if(image)return '将该图片作为'+kind.label+'参考素材';return '关于'+kind.label+'参考，'+note;}).filter(Boolean);
           if(referenceParts.length)lines.push('参考素材：'+referenceParts.join('；')+'。');
           if(scheme.directions.length)lines.push('创意方向：'+scheme.directions.join('、')+'。');
           if(scheme.constraints.length)lines.push('工艺、面料与配色约束：'+scheme.constraints.join('、')+'。');
@@ -830,8 +849,9 @@
           this.$message.success('拼接方案已保存');
         },
         removeSpliceDraftTag: function(group,item){ if(this.isViewer)return;this.$set(this.spliceEditDraft,group,this.spliceEditDraft[group].filter(function(value){return value!==item;})); },
-        removeSpliceDraftReference: function(key){ if(this.isViewer)return;this.spliceEditDraft.references=this.spliceEditDraft.references.filter(function(item){return item.key!==key;}); },
+        removeSpliceDraftReference: function(key){ if(this.isViewer)return;this.spliceEditDraft.references=this.spliceEditDraft.references.filter(function(item){return item.key!==key;});this.spliceEditDraft.textReferences=this.spliceEditDraft.textReferences.filter(function(item){return item.key!==key||Boolean((item.note||'').trim());}); },
         removeSpliceDraftTextReference: function(key){ if(this.isViewer)return;this.spliceEditDraft.textReferences=this.spliceEditDraft.textReferences.filter(function(item){return item.key!==key;}); },
+        addSpliceDraftTextReference: function(key,label){ if(this.isViewer)return;if(!this.spliceEditDraft.textReferences.some(function(item){return item.key===key;}))this.spliceEditDraft.textReferences.push({key:key,label:label,note:''}); },
         copyText: function(text,successMessage){ var self=this;function fallback(){var area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');self.$message.success(successMessage);}catch(e){self.$message.error('复制失败，请重试');}document.body.removeChild(area);}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){self.$message.success(successMessage);}).catch(fallback);}else{fallback();} },
         validatePlanningRequired: function(){
           if(!this.planning.category){ this.$message.error('请选择品类'); return false; }
