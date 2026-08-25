@@ -180,9 +180,8 @@
     .reference-upload__trigger { width: 52px; }
     .reference-upload__thumb { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; overflow: hidden; border: 1px dashed #DADDE3; border-radius: 8px; color: #2F3135; background: #FAFAFB; font-size: 24px; }
     .reference-upload__thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .reference-upload__fields { min-width: 0; }
-    .reference-upload__name { display: block; margin-bottom: 5px; overflow: hidden; color: #858A93; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
-    .reference-upload__fields .el-input__inner { height: 30px; border: 0; padding: 0; color: #4A4E55; background: transparent; font-size: 13px; }
+    .reference-upload > .el-input { min-width: 0; }
+    .reference-upload > .el-input .el-input__inner { height: 48px; border: 0; padding: 0 10px; color: #4A4E55; background: transparent; font-size: 15px; }
     .prompt-column { position: sticky; top: 108px; min-height: 900px; padding: 22px 24px; border: 1px solid #F0F1F3; border-radius: 14px; background: #fff; }
     .prompt-column__head { display: flex; margin-bottom: 16px; align-items: center; justify-content: space-between; gap: 18px; color: #565A61; }
     .prompt-column__dot { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--sw-primary); }
@@ -225,7 +224,7 @@
     .splice-text-section + .splice-text-section { padding-top: 22px; }
     .splice-text-section:last-child { padding-bottom: 0; border-bottom: 0; }
     .splice-text-section__title { display: flex; margin-bottom: 11px; align-items: center; gap: 10px; color: #303133; font-size: 16px; font-weight: 600; }
-    .splice-text-section__title::before { width: 3px; height: 18px; border-radius: 2px; background: var(--sw-primary); content: ""; }
+    .splice-text-section__title::before { width: 3px; height: 18px; border-radius: 2px; background: #303133; content: ""; }
     .splice-text-section__content { margin: 0; color: #3F434A; font-size: 15px; line-height: 25px; }
     .splice-text-section__content.is-empty { color: #A4A8AF; }
     .splice-editor { margin: 0; }
@@ -236,10 +235,10 @@
     .splice-reference-item { display: grid; min-height: 132px; grid-template-columns: 128px minmax(0,1fr); gap: 16px; padding: 10px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; }
     .splice-reference-image { width: 128px; height: 112px; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #F7F8FA; }
     .splice-reference-image img { width: 100%; height: 100%; object-fit: cover; }
-    .splice-reference-body { min-width: 0; padding: 3px 2px; }
+    .splice-reference-body { display: flex; min-width: 0; padding: 3px 2px; flex-direction: column; justify-content: center; align-items: flex-start; }
     .splice-reference-tag { display: inline-flex; height: 24px; align-items: center; padding: 0 9px; border-radius: 7px; color: #6C7179; background: #F1F2F4; font-size: 12px; }
-    .splice-reference-title { margin: 10px 0 7px; color: #303133; font-size: 16px; font-weight: 600; }
-    .splice-reference-note { margin: 0; color: #737983; font-size: 14px; line-height: 22px; word-break: break-word; }
+    .splice-reference-note { margin: 12px 0 0; color: #737983; font-size: 14px; line-height: 22px; word-break: break-word; }
+    .splice-reference-note__label { color: #737983; }
     .splice-competitor-note { padding: 16px; border: 1px solid #E1E5EC; border-radius: 10px; background: #FAFBFC; }
     .splice-reference-empty { display: flex; min-height: 260px; align-items: center; justify-content: center; color: #A3A7AE; font-size: 14px; text-align: center; }
     .splice-card__footer { display: flex; margin-top: 16px; align-items: center; justify-content: space-between; gap: 18px; color: #9AA0AA; font-size: 13px; }
@@ -400,14 +399,11 @@
                   <h2 class="reference-form-card__title">参考图片</h2>
                   <div v-for="kind in imageKinds" :key="kind.key" class="reference-image-row">
                     <div class="reference-image-label">{{ kind.label }}（{{ planning.images[kind.key] ? '1/1' : '0/1' }}）</div>
-                    <div class="reference-upload">
+                    <div class="reference-upload" :data-field-description="kind.label+'图片：选填；每组最多 1 张；上传后在拼接方案右侧展示缩略图和对应说明。'">
                       <el-upload class="reference-upload__trigger" action="#" accept="image/*" :auto-upload="false" :show-file-list="false" :disabled="isViewer" :on-change="function(file){setImage(kind.key,file)}">
                         <span class="reference-upload__thumb"><img v-if="planning.imagePreviews[kind.key]" :src="planning.imagePreviews[kind.key]" :alt="kind.label+'参考图'"><i v-else :class="planning.images[kind.key] ? 'el-icon-picture-outline' : 'el-icon-plus'"></i></span>
                       </el-upload>
-                      <div class="reference-upload__fields">
-                        <span class="reference-upload__name" :data-field-description="kind.label+'图片：选填；每组最多 1 张；上传后在拼接方案右侧展示缩略图。'">{{ planning.images[kind.key] || '点击左侧方框上传图片' }}</span>
-                        <el-input v-model="planning.imageNotes[kind.key]" maxlength="100" :disabled="isViewer" :placeholder="'填写'+kind.label+'参考说明（选填）'"></el-input>
-                      </div>
+                      <el-input v-model="planning.imageNotes[kind.key]" maxlength="100" :disabled="isViewer" placeholder="填写说明"></el-input>
                     </div>
                   </div>
                 </section>
@@ -460,9 +456,9 @@
                         <div v-if="spliceReferenceCount" class="splice-reference-list">
                           <article v-for="item in spliceReferenceMaterials" :key="item.key" class="splice-reference-item">
                             <div class="splice-reference-image"><img :src="item.preview" :alt="item.label+'参考图'"></div>
-                            <div class="splice-reference-body"><span class="splice-reference-tag">{{ item.label }}</span><h3 class="splice-reference-title">{{ item.title }}</h3><p class="splice-reference-note">{{ item.note }}</p></div>
+                            <div class="splice-reference-body"><span class="splice-reference-tag">{{ item.label }}</span><p class="splice-reference-note"><span class="splice-reference-note__label">说明：</span>{{ item.note }}</p></div>
                           </article>
-                          <article v-if="showStandaloneCompetitorNote" class="splice-competitor-note"><span class="splice-reference-tag">竞品说明</span><h3 class="splice-reference-title">文字参考</h3><p class="splice-reference-note">{{ planning.competitor }}</p></article>
+                          <article v-if="showStandaloneCompetitorNote" class="splice-competitor-note"><span class="splice-reference-tag">竞品说明</span><p class="splice-reference-note"><span class="splice-reference-note__label">说明：</span>{{ planning.competitor }}</p></article>
                         </div>
                         <div v-else class="splice-reference-empty"><div><i class="el-icon-picture-outline" style="display:block;margin-bottom:10px;font-size:28px"></i>左侧上传参考图片或填写竞品说明后，将在这里展示</div></div>
                       </aside>
@@ -671,7 +667,7 @@
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
         spliceTextSections: function(){ var values={};this.splicedPrompt.split(/\n+/).forEach(function(line){var index=line.indexOf('：');if(index>0)values[line.slice(0,index).trim()]=line.slice(index+1).trim();});return [{key:'goal',title:'设计目标',content:values['设计目标']||'未填写',empty:!values['设计目标']},{key:'creative',title:'创意与结构',content:values['创意与结构']||'未填写',empty:!values['创意与结构']},{key:'craft',title:'材质与工艺',content:values['材质与工艺']||'未填写',empty:!values['材质与工艺']},{key:'forbidden',title:'禁止项',content:values['禁止项']||'未填写',empty:!values['禁止项']}]; },
-        spliceReferenceMaterials: function(){ var self=this;var titleMap={sketch:'版型结构',competitor:'工艺与配色',creative:'视觉氛围'};return this.imageKinds.filter(function(kind){return Boolean(self.planning.images[kind.key]);}).map(function(kind){var note=(self.planning.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'){var competitorNote=self.planning.competitor.trim();if(note&&competitorNote)note=note+'；竞品说明：'+competitorNote;else if(competitorNote)note=competitorNote;}return {key:kind.key,label:kind.label,title:titleMap[kind.key],preview:self.planning.imagePreviews[kind.key]||self.referencePlaceholder(kind.label),note:note||'未填写参考说明'};}); },
+        spliceReferenceMaterials: function(){ var self=this;return this.imageKinds.filter(function(kind){return Boolean(self.planning.images[kind.key]);}).map(function(kind){var note=(self.planning.imageNotes[kind.key]||'').trim();if(kind.key==='competitor'){var competitorNote=self.planning.competitor.trim();if(note&&competitorNote)note=note+'；竞品说明：'+competitorNote;else if(competitorNote)note=competitorNote;}return {key:kind.key,label:kind.label,preview:self.planning.imagePreviews[kind.key]||self.referencePlaceholder(kind.label),note:note||'未填写参考说明'};}); },
         showStandaloneCompetitorNote: function(){ return Boolean(this.planning.competitor.trim()&&!this.planning.images.competitor); },
         spliceReferenceCount: function(){ return this.spliceReferenceMaterials.length+(this.showStandaloneCompetitorNote?1:0); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
