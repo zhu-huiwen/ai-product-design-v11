@@ -150,9 +150,6 @@
     .planning-hero__actions { display: flex; align-items: center; gap: 12px; }
     .planning-hero__actions .el-button { height: 52px; padding: 0 28px; border-radius: 27px; font-size: 18px; }
     .planning-hero__actions .el-button + .el-button { margin-left: 0; }
-    .regenerate-prompt-button.el-button { min-width: 146px; border-color: #F2F2F2; color: #303133; background: #F4F4F4; box-shadow: 0 5px 12px rgba(48,49,51,.06); }
-    .regenerate-prompt-button.el-button:hover, .regenerate-prompt-button.el-button:focus { border-color: #E7E7E7; color: #1F2329; background: #ECECEC; }
-    .regenerate-prompt-button.el-button i { margin-right: 7px; font-size: 20px; }
     .prompt-mode-dropdown { display: inline-flex; }
     .prompt-mode-dropdown .el-button-group { display: inline-flex; }
     .prompt-mode-dropdown .el-button--primary:first-child { min-width: 166px; padding-right: 22px; border-radius: 27px 0 0 27px; }
@@ -338,7 +335,6 @@
                 <p>填写左侧需求 → 点击按钮主体执行当前方式；点击小三角可切换另一种提示词生成方式</p>
               </div>
               <div class="planning-hero__actions" data-flow-step="action">
-                <el-button v-if="hasCurrentPromptResult && promptMode==='ai'" class="regenerate-prompt-button" icon="el-icon-refresh-right" :loading="promptLoading" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode">重新生成</el-button>
                 <el-dropdown class="prompt-mode-dropdown" split-button type="primary" trigger="click" :disabled="isViewer || promptLoading" @click="runCurrentPromptMode" @command="switchPromptMode">
                   <i :class="promptMode==='ai' ? 'el-icon-magic-stick' : 'el-icon-document'"></i>&nbsp;{{ promptActionLabel }}
                   <el-dropdown-menu slot="dropdown" class="prompt-mode-menu">
@@ -613,7 +609,7 @@
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
-        promptActionLabel: function(){ return this.promptMode==='ai' ? '生成提示词' : '拼接提示词'; },
+        promptActionLabel: function(){ return this.promptMode==='ai' ? (this.directions.length ? '重新生成提示词' : '生成提示词') : '拼接提示词'; },
         alternatePromptActionLabel: function(){ return this.promptMode==='ai' ? '拼接提示词' : '生成提示词'; },
         activeGenerationDirections: function(){ return this.promptMode==='splice' ? (this.hasSplicedPrompt ? [{id:'SPLICE-1',code:'P',name:'拼接方案 1',match:100,selected:true,prompt:this.splicedPrompt}] : []) : this.selectedDirections; },
         filteredCreatives: function(){ var self=this; return this.creatives.filter(function(item){var byKeyword=!self.creativeKeyword||item.name.indexOf(self.creativeKeyword.trim())!==-1;var byStatus=self.creativeStatus==='已移除'?item.removed:(self.creativeStatus==='定稿'?item.final&&!item.removed:!item.removed);return byKeyword&&byStatus;}); },
