@@ -224,9 +224,10 @@
     .splice-card__actions .splice-action-button.el-button:hover, .splice-card__actions .splice-action-button.el-button:focus { border-color: #B9C1CC; color: #303133; background: #FAFBFC; }
     .splice-prompt-surface { min-height: 500px; margin-top: 24px; padding: 30px 28px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; font-weight: 400; }
     .splice-natural-intro { margin: 0; color: #24272C; font-size: 17px; line-height: 30px; }
-    .splice-reference-title { margin: 18px 0 0; color: #30343A; font-size: 16px; line-height: 26px; }
-    .splice-reference-empty { margin: 18px 0 0; color: #909399; font-size: 15px; line-height: 25px; }
-    .splice-reference-flow { display: flex; margin-top: 14px; flex-wrap: wrap; align-items: center; gap: 18px 24px; }
+    .splice-content-rows { display: flex; margin-top: 26px; flex-direction: column; gap: 20px; }
+    .splice-content-row { display: grid; grid-template-columns: max-content minmax(0,1fr); align-items: start; gap: 12px; color: #303133; }
+    .splice-content-row__label { padding-top: 6px; font-size: 16px; font-weight: 400; line-height: 24px; white-space: nowrap; }
+    .splice-reference-flow { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
     .splice-inline-reference { display: inline-flex; min-width: 0; align-items: center; gap: 12px; }
     .splice-inline-image { display: inline-flex; width: 96px; height: 80px; padding: 5px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
     .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
@@ -236,9 +237,9 @@
     .splice-text-reference-list { display: flex; margin-top: 22px; flex-direction: column; gap: 10px; }
     .splice-text-only-reference, .splice-standalone-note { margin: 0; color: #3D424A; font-size: 15px; line-height: 25px; }
     .splice-tag-groups { display: flex; margin-top: 34px; flex-direction: column; gap: 20px; }
-    .splice-tag-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #303133; }
-    .splice-tag-line__label { margin-right: 2px; font-size: 16px; font-weight: 400; white-space: nowrap; }
-    .splice-tag-empty { color: #A4A8AF; font-size: 14px; }
+    .splice-tag-line { display: grid; grid-template-columns: max-content minmax(0,1fr); align-items: start; gap: 12px; color: #303133; }
+    .splice-tag-line__label { padding-top: 6px; font-size: 16px; font-weight: 400; line-height: 24px; white-space: nowrap; }
+    .splice-tag-values { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 10px; }
     .splice-token { display: inline-flex; height: 36px; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid #DDE1E8; border-radius: 8px; color: #30343A; background: #fff; font-size: 14px; }
     button.splice-token { cursor: pointer; }
     button.splice-token:hover { border-color: #AEB7C3; background: #FAFBFC; }
@@ -469,35 +470,36 @@
                     <div class="splice-prompt-surface">
                       <template v-if="!splicedEditing">
                         <p class="splice-natural-intro">请设计一款{{ spliceScheme.category }}，企划要求是{{ spliceScheme.need }}。</p>
-                        <p v-if="hasSpliceSchemeReference" class="splice-reference-title">参考素材：</p>
-                        <p v-else class="splice-reference-empty">暂未添加参考素材。</p>
-                        <div v-if="spliceReferenceGroups.length" class="splice-reference-flow">
-                          <span v-for="item in spliceReferenceGroups" :key="item.key" class="splice-inline-reference">
-                            <button v-if="item.preview" type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
-                            <span v-if="item.preview && item.note" class="splice-reference-divider" aria-hidden="true"></span>
-                            <span v-if="item.note" class="splice-inline-note">{{ item.label }}参考说明：{{ item.note }}</span>
-                            <span class="splice-inline-punctuation">；</span>
-                          </span>
-                        </div>
-                        <div class="splice-tag-groups">
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">创意方向：</span><span v-for="item in spliceScheme.directions" :key="'direction-view-'+item" class="splice-token">{{ item }}</span><span v-if="!spliceScheme.directions.length" class="splice-tag-empty">未选择</span></div>
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">工艺、面料与配色约束：</span><span v-for="item in spliceScheme.constraints" :key="'constraint-view-'+item" class="splice-token">{{ item }}</span><span v-if="!spliceScheme.constraints.length" class="splice-tag-empty">未选择</span></div>
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">禁止项：</span><span v-for="item in spliceScheme.forbidden" :key="'forbidden-view-'+item" class="splice-token">{{ item }}</span><span v-if="!spliceScheme.forbidden.length" class="splice-tag-empty">未设置</span></div>
+                        <div v-if="spliceReferenceGroups.length||spliceScheme.directions.length||spliceScheme.constraints.length||spliceScheme.forbidden.length" class="splice-content-rows">
+                          <div v-if="spliceReferenceGroups.length" class="splice-content-row">
+                            <span class="splice-content-row__label">参考素材：</span>
+                            <div class="splice-reference-flow">
+                              <span v-for="(item,index) in spliceReferenceGroups" :key="item.key" class="splice-inline-reference">
+                                <button v-if="item.preview" type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
+                                <span v-if="item.preview" class="splice-reference-divider" aria-hidden="true"></span>
+                                <span class="splice-inline-note">{{ item.description }}</span>
+                                <span v-if="index<spliceReferenceGroups.length-1" class="splice-inline-punctuation">；</span>
+                              </span>
+                            </div>
+                          </div>
+                          <div v-if="spliceScheme.directions.length" class="splice-content-row"><span class="splice-content-row__label">创意方向：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.directions" :key="'direction-view-'+item" class="splice-token">{{ item }}</span></span></div>
+                          <div v-if="spliceScheme.constraints.length" class="splice-content-row"><span class="splice-content-row__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.constraints" :key="'constraint-view-'+item" class="splice-token">{{ item }}</span></span></div>
+                          <div v-if="spliceScheme.forbidden.length" class="splice-content-row"><span class="splice-content-row__label">禁止项：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.forbidden" :key="'forbidden-view-'+item" class="splice-token">{{ item }}</span></span></div>
                         </div>
                       </template>
                       <template v-else>
                         <div class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><el-input v-model="spliceEditDraft.need" type="textarea" :rows="2" maxlength="500" show-word-limit></el-input></div>
                         <section v-if="spliceEditDraft.references.length" class="splice-edit-section"><div class="splice-edit-section__title">参考图片</div><div class="splice-edit-reference-list"><div v-for="item in spliceEditDraft.references" :key="'edit-reference-'+item.key" class="splice-edit-reference"><button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button><span>{{ item.label }}参考图片</span><el-button class="splice-edit-reference__delete" type="text" icon="el-icon-delete" @click="removeSpliceDraftReference(item.key)">删除图片</el-button></div></div></section>
                         <section v-if="spliceEditDraft.textReferences.length" class="splice-edit-section"><div class="splice-edit-section__title">参考说明</div><div v-for="item in spliceEditDraft.textReferences" :key="'edit-text-'+item.key" class="splice-edit-text-row"><span class="splice-edit-text-row__label">{{ item.label }}参考说明</span><el-input v-model="item.note" maxlength="300"></el-input><el-button type="text" icon="el-icon-close" aria-label="删除说明" @click="removeSpliceDraftTextReference(item.key)"></el-button></div></section>
-                        <div class="splice-tag-groups">
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">创意方向：</span><button v-for="item in spliceEditDraft.directions" :key="'direction-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('directions',item)">{{ item }}<span class="splice-token__close">×</span></button><span v-if="!spliceEditDraft.directions.length" class="splice-tag-empty">未选择</span></div>
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">工艺、面料与配色约束：</span><button v-for="item in spliceEditDraft.constraints" :key="'constraint-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button><span v-if="!spliceEditDraft.constraints.length" class="splice-tag-empty">未选择</span></div>
-                          <div class="splice-tag-line"><span class="splice-tag-line__label">禁止项：</span><button v-for="item in spliceEditDraft.forbidden" :key="'forbidden-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('forbidden',item)">{{ item }}<span class="splice-token__close">×</span></button><span v-if="!spliceEditDraft.forbidden.length" class="splice-tag-empty">未设置</span></div>
+                        <div v-if="spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-tag-groups">
+                          <div v-if="spliceEditDraft.directions.length" class="splice-tag-line"><span class="splice-tag-line__label">创意方向：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.directions" :key="'direction-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('directions',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
+                          <div v-if="spliceEditDraft.constraints.length" class="splice-tag-line"><span class="splice-tag-line__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.constraints" :key="'constraint-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
+                          <div v-if="spliceEditDraft.forbidden.length" class="splice-tag-line"><span class="splice-tag-line__label">禁止项：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.forbidden" :key="'forbidden-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('forbidden',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
                         </div>
                         <p class="splice-edit-hint">编辑只影响当前拼接方案，不会修改左侧原始企划输入。</p>
                       </template>
                     </div>
-                    <div class="splice-card__footer"><span>来源：品类选择、企划需求、参考图片、参考竞品及文字说明、创意方向、工艺约束、禁止项（仅包含非空字段）</span></div>
+                    <div class="splice-card__footer"><span>来源：{{ spliceSourceSummary }}（仅包含非空字段）</span></div>
                   </article>
                   <div v-else class="prompt-initial-empty" data-flow-step="result"><div><span class="prompt-empty-logo" aria-hidden="true"></span><strong>请先填写左侧需求</strong><p>点击「拼接提示词」按钮，将左侧信息拼接为1个文字方案</p></div></div>
                 </template>
@@ -705,7 +707,8 @@
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
         hasSpliceSchemeReference: function(){ return Boolean(this.spliceScheme.references.length||this.spliceScheme.textReferences.length); },
-        spliceReferenceGroups: function(){ var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];return {key:kind.key,label:kind.label,preview:image?image.preview:'',note:note?note.note:''};}).filter(function(item){return Boolean(item.preview||item.note);}); },
+        spliceReferenceGroups: function(){ var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];var rawNote=note&&note.note?note.note.trim():'';var preview=image?image.preview:'';return {key:kind.key,label:kind.label,preview:preview,description:rawNote?(kind.label+' · '+rawNote):(preview?'作为'+kind.label+'参考素材':'')};}).filter(function(item){return Boolean(item.preview||item.description);}); },
+        spliceSourceSummary: function(){ var sources=['品类选择','企划需求'];if(this.spliceScheme.references.length)sources.push('参考图片');if(this.spliceScheme.textReferences.length)sources.push('参考说明');if(this.spliceScheme.directions.length)sources.push('创意方向');if(this.spliceScheme.constraints.length)sources.push('工艺约束');if(this.spliceScheme.forbidden.length)sources.push('禁止项');return sources.join('、'); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
         promptActionLabel: function(){ return this.promptMode==='ai' ? (this.directions.length ? '重新生成提示词' : '生成提示词') : '拼接提示词'; },
         alternatePromptActionLabel: function(){ return this.promptMode==='ai' ? '拼接提示词' : '生成提示词'; },
@@ -788,8 +791,11 @@
         },
         buildSplicedPromptFromScheme: function(scheme){
           var lines=['请设计一款'+scheme.category+'，企划要求是'+scheme.need+'。'];
-          if(scheme.references.length)lines.push('参考图片：'+scheme.references.map(function(item){return item.label+'参考图片';}).join('、')+'。');
-          scheme.textReferences.forEach(function(item){lines.push(item.label+'参考说明：'+item.note+'。');});
+          var images={},notes={};
+          scheme.references.forEach(function(item){images[item.key]=item;});
+          scheme.textReferences.forEach(function(item){notes[item.key]=item;});
+          var referenceParts=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key]&&notes[kind.key].note?notes[kind.key].note.trim():'';if(!image&&!note)return '';if(image&&note)return kind.label+'图片，'+note;if(image)return kind.label+'图片，作为'+kind.label+'参考素材';return kind.label+'说明，'+note;}).filter(Boolean);
+          if(referenceParts.length)lines.push('参考素材：'+referenceParts.join('；')+'。');
           if(scheme.directions.length)lines.push('创意方向：'+scheme.directions.join('、')+'。');
           if(scheme.constraints.length)lines.push('工艺、面料与配色约束：'+scheme.constraints.join('、')+'。');
           if(scheme.forbidden.length)lines.push('禁止项：'+scheme.forbidden.join('、')+'。');
