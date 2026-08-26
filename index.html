@@ -247,7 +247,10 @@
     button.splice-token:hover { border-color: #AEB7C3; background: #FAFBFC; }
     button.splice-token:disabled { cursor: default; opacity: .7; }
     .splice-token__close { color: #657080; font-size: 16px; font-weight: 400; }
-    .splice-edit-intro { margin: 0; color: #24272C; font-size: 17px; line-height: 30px; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-word; }
+    .splice-edit-intro { display: grid; margin: 0; grid-template-columns: max-content minmax(0,1fr); align-items: start; color: #24272C; font-size: 17px; line-height: 30px; }
+    .splice-edit-prefix { white-space: nowrap; }
+    .splice-edit-value { display: block; min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-word; }
+    .splice-reference-sentence--edit { display: grid; grid-template-columns: max-content minmax(0,1fr); align-items: start; }
     .splice-direct-edit { display: inline; min-width: 2em; padding: 1px 2px; border: 0; border-radius: 4px; outline: 0; color: inherit; background: transparent; font: inherit; line-height: inherit; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-word; cursor: text; }
     .splice-direct-edit:focus { background: #F3F7FF; box-shadow: 0 0 0 2px #E5EFFF; }
     .splice-direct-edit:empty::before { color: #A4A8AF; content: attr(data-placeholder); pointer-events: none; }
@@ -489,7 +492,7 @@
                         </div>
                       </template>
                       <template v-else>
-                        <p class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-splice-edit-field="need" data-placeholder="请输入企划需求" @input="limitSpliceEditable($event,500)" @blur="commitSpliceDraftNeed" @paste="pasteSplicePlainText">{{ spliceEditDraft.need }}</span><span>。</span></p>
+                        <p class="splice-edit-intro"><span class="splice-edit-prefix">请设计一款{{ spliceEditDraft.category }}，企划要求是</span><span class="splice-edit-value"><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-splice-edit-field="need" data-placeholder="请输入企划需求" @input="limitSpliceEditable($event,500)" @blur="commitSpliceDraftNeed" @paste="pasteSplicePlainText">{{ spliceEditDraft.need }}</span><span>。</span></span></p>
                         <div v-if="spliceEditReferenceGroups.length||spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-content-rows">
                           <div v-if="spliceEditReferenceGroups.length" class="splice-content-row">
                             <span class="splice-content-row__label">参考素材：</span>
@@ -499,11 +502,11 @@
                                   <button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
                                   <button type="button" class="splice-edit-image-remove" :aria-label="'删除'+item.label+'参考图片'" @click="removeSpliceDraftReference(item.key)">×</button>
                                 </span>
-                                <span class="splice-reference-sentence">
+                                <span :class="['splice-reference-sentence',{'splice-reference-sentence--edit':item.noteItem}]">
                                   <template v-if="item.noteItem">
-                                    <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" :data-splice-note-key="item.key" data-placeholder="补充参考说明" @input="limitSpliceEditable($event,300)" @blur="commitSpliceDraftNote(item.noteItem,$event)" @paste="pasteSplicePlainText">{{ item.noteItem.note }}</span><button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button>
+                                    <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span><span class="splice-edit-value"><span class="splice-direct-edit" contenteditable="true" spellcheck="false" :data-splice-note-key="item.key" data-placeholder="补充参考说明" @input="limitSpliceEditable($event,300)" @blur="commitSpliceDraftNote(item.noteItem,$event)" @paste="pasteSplicePlainText">{{ item.noteItem.note }}</span><button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button><span class="splice-inline-punctuation">{{ index===spliceEditReferenceGroups.length-1 ? '。' : '；' }}</span></span>
                                   </template>
-                                  <template v-else><span>将该图片作为{{ item.label }}参考素材</span><el-button type="text" class="splice-add-note" @click="addSpliceDraftTextReference(item.key,item.label)">添加说明</el-button></template><span class="splice-inline-punctuation">{{ index===spliceEditReferenceGroups.length-1 ? '。' : '；' }}</span>
+                                  <template v-else><span>将该图片作为{{ item.label }}参考素材</span><el-button type="text" class="splice-add-note" @click="addSpliceDraftTextReference(item.key,item.label)">添加说明</el-button><span class="splice-inline-punctuation">{{ index===spliceEditReferenceGroups.length-1 ? '。' : '；' }}</span></template>
                                 </span>
                               </span>
                             </div>
