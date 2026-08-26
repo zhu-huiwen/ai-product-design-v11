@@ -484,7 +484,7 @@
                         </div>
                       </template>
                       <template v-else>
-                        <p class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-placeholder="请输入企划需求" @input="updateSpliceDraftNeed" @paste="pasteSplicePlainText">{{ spliceEditDraft.need }}</span><span>。</span></p>
+                        <p class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-splice-edit-field="need" data-placeholder="请输入企划需求" @input="limitSpliceEditable($event,500)" @blur="commitSpliceDraftNeed" @paste="pasteSplicePlainText">{{ spliceEditDraft.need }}</span><span>。</span></p>
                         <div v-if="spliceEditReferenceGroups.length||spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-content-rows">
                           <div v-if="spliceEditReferenceGroups.length" class="splice-content-row">
                             <span class="splice-content-row__label">参考素材：</span>
@@ -496,7 +496,7 @@
                                 </span>
                                 <span class="splice-reference-sentence">
                                   <template v-if="item.noteItem">
-                                    <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-placeholder="补充参考说明" @input="updateSpliceDraftNote(item.noteItem,$event)" @paste="pasteSplicePlainText">{{ item.noteItem.note }}</span><button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button>
+                                    <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span><span class="splice-direct-edit" contenteditable="true" spellcheck="false" :data-splice-note-key="item.key" data-placeholder="补充参考说明" @input="limitSpliceEditable($event,300)" @blur="commitSpliceDraftNote(item.noteItem,$event)" @paste="pasteSplicePlainText">{{ item.noteItem.note }}</span><button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button>
                                   </template>
                                   <template v-else><span>将该图片作为{{ item.label }}参考素材</span><el-button type="text" class="splice-add-note" @click="addSpliceDraftTextReference(item.key,item.label)">添加说明</el-button></template><span class="splice-inline-punctuation">{{ index===spliceEditReferenceGroups.length-1 ? '。' : '；' }}</span>
                                 </span>
@@ -829,10 +829,15 @@
         },
         beginSpliceEdit: function(){ if(this.isViewer){this.$message.error('暂无权限执行此操作，请联系管理员');return;}this.spliceEditDraft=this.cloneSpliceScheme(this.spliceScheme);this.splicedEditing=true; },
         cancelSpliceEdit: function(){ this.spliceEditDraft=this.cloneSpliceScheme(this.spliceScheme);this.splicedEditing=false;this.$message.info('已取消编辑，方案内容未变更'); },
-        updateSpliceDraftNeed: function(event){ var element=event.currentTarget;var value=(element.innerText||'').replace(/\u00a0/g,' ');if(value.length>500){value=value.slice(0,500);element.innerText=value;}this.spliceEditDraft.need=value; },
-        updateSpliceDraftNote: function(item,event){ if(!item)return;var element=event.currentTarget;var value=(element.innerText||'').replace(/\u00a0/g,' ');if(value.length>300){value=value.slice(0,300);element.innerText=value;}item.note=value; },
+        spliceEditableValue: function(element,limit){ return (element&&element.innerText?element.innerText:'').replace(/\u00a0/g,' ').slice(0,limit); },
+        placeSpliceCaretAtEnd: function(element){ var selection=window.getSelection();var range=document.createRange();range.selectNodeContents(element);range.collapse(false);selection.removeAllRanges();selection.addRange(range); },
+        limitSpliceEditable: function(event,limit){ var element=event.currentTarget;var value=(element.innerText||'').replace(/\u00a0/g,' ');if(value.length<=limit)return;element.innerText=value.slice(0,limit);this.placeSpliceCaretAtEnd(element); },
+        commitSpliceDraftNeed: function(event){ this.spliceEditDraft.need=this.spliceEditableValue(event.currentTarget,500); },
+        commitSpliceDraftNote: function(item,event){ if(item)item.note=this.spliceEditableValue(event.currentTarget,300); },
+        syncSpliceEditableFields: function(){ var needElement=this.$el.querySelector('[data-splice-edit-field="need"]');if(needElement)this.spliceEditDraft.need=this.spliceEditableValue(needElement,500);var self=this;Array.prototype.forEach.call(this.$el.querySelectorAll('[data-splice-note-key]'),function(element){var key=element.getAttribute('data-splice-note-key');var item=self.spliceEditDraft.textReferences.find(function(row){return row.key===key;});if(item)item.note=self.spliceEditableValue(element,300);}); },
         pasteSplicePlainText: function(event){ event.preventDefault();var clipboard=event.clipboardData||window.clipboardData;var value=clipboard?clipboard.getData('text/plain'):'';document.execCommand('insertText',false,value); },
         saveSplicedPrompt: function(){
+          this.syncSpliceEditableFields();
           if(!this.spliceEditDraft.need.trim()){this.$message.error('企划需求不能为空');return;}
           this.spliceEditDraft.need=this.spliceEditDraft.need.trim().replace(/[。；;]+$/,'');
           this.spliceEditDraft.references=this.spliceEditDraft.references.filter(function(item){return Boolean(item.preview);}).map(function(item){return {key:item.key,label:item.label,preview:item.preview};});
