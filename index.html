@@ -225,7 +225,9 @@
     .splice-card__actions .splice-action-button.el-button { min-width: 116px; height: 44px; padding: 0 20px; border: 1px solid #D9DDE5; border-radius: 10px; color: #303133; background: #fff; font-size: 15px; font-weight: 400; }
     .splice-card__actions .splice-action-button.el-button:hover, .splice-card__actions .splice-action-button.el-button:focus { border-color: #B9C1CC; color: #303133; background: #FAFBFC; }
     .splice-prompt-surface { min-height: 500px; margin-top: 24px; padding: 30px 28px; border: 1px solid #E1E5EC; border-radius: 10px; background: #fff; font-weight: 400; }
-    .splice-natural-intro { margin: 0; color: #24272C; font-size: 17px; line-height: 30px; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-all; }
+    .splice-natural-prompt { margin: 0; color: #24272C; font-size: 17px; line-height: 34px; overflow-wrap: anywhere; white-space: normal; word-break: break-all; }
+    .splice-natural-prompt .splice-inline-image { display: inline-flex; width: 46px; height: 46px; margin: 1px 7px; padding: 2px; vertical-align: middle; border-radius: 50%; }
+    .splice-natural-prompt .splice-inline-image img { border-radius: 50%; }
     .splice-content-rows { display: flex; margin-top: 26px; flex-direction: column; gap: 20px; }
     .splice-content-row { display: grid; grid-template-columns: max-content minmax(0,1fr); align-items: start; gap: 12px; color: #303133; }
     .splice-content-row__label { padding-top: 6px; font-size: 16px; font-weight: 400; line-height: 24px; white-space: nowrap; }
@@ -235,11 +237,6 @@
     .splice-inline-image { display: inline-flex; width: 76px; height: 64px; flex: 0 0 76px; padding: 4px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
     .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
     .splice-reference-sentence { min-width: 0; padding-top: 4px; color: #30343A; font-size: 15px; line-height: 26px; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-all; }
-    .splice-reference-flow--view { display: block; min-width: 0; color: #30343A; font-size: 15px; line-height: 28px; }
-    .splice-reference-flow--view .splice-inline-reference, .splice-reference-flow--view .splice-inline-reference.is-text-only { display: inline; width: auto; min-width: 0; }
-    .splice-reference-flow--view .splice-inline-image { display: inline-flex; width: 46px; height: 46px; margin: 1px 7px 1px 2px; padding: 2px; vertical-align: middle; border-radius: 50%; }
-    .splice-reference-flow--view .splice-inline-image img { border-radius: 50%; }
-    .splice-reference-flow--view .splice-reference-sentence { display: inline; padding-top: 0; font-size: inherit; line-height: inherit; vertical-align: middle; }
     .splice-inline-punctuation { color: #30343A; font-size: 15px; }
     .splice-text-reference-list { display: flex; margin-top: 22px; flex-direction: column; gap: 10px; }
     .splice-text-only-reference, .splice-standalone-note { margin: 0; color: #3D424A; font-size: 15px; line-height: 25px; }
@@ -480,21 +477,7 @@
                     </div>
                     <div class="splice-prompt-surface">
                       <template v-if="!splicedEditing">
-                        <p class="splice-natural-intro">请设计一款{{ spliceScheme.category }}，企划要求是{{ spliceScheme.need }}。</p>
-                        <div v-if="spliceReferenceGroups.length||spliceScheme.directions.length||spliceScheme.constraints.length||spliceScheme.forbidden.length" class="splice-content-rows">
-                          <div v-if="spliceReferenceGroups.length" class="splice-content-row">
-                            <span class="splice-content-row__label">参考素材：</span>
-                            <div class="splice-reference-flow splice-reference-flow--view">
-                              <span v-for="(item,index) in spliceReferenceGroups" :key="item.key" :class="['splice-inline-reference',{'is-text-only':!item.preview}]">
-                                <button v-if="item.preview" type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
-                                <span class="splice-reference-sentence"><span>{{ item.description }}</span><span class="splice-inline-punctuation">{{ index===spliceReferenceGroups.length-1 ? '。' : '；' }}</span></span>
-                              </span>
-                            </div>
-                          </div>
-                          <div v-if="spliceScheme.directions.length" class="splice-content-row"><span class="splice-content-row__label">创意方向：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.directions" :key="'direction-view-'+item" class="splice-token">{{ item }}</span></span></div>
-                          <div v-if="spliceScheme.constraints.length" class="splice-content-row"><span class="splice-content-row__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.constraints" :key="'constraint-view-'+item" class="splice-token">{{ item }}</span></span></div>
-                          <div v-if="spliceScheme.forbidden.length" class="splice-content-row"><span class="splice-content-row__label">禁止项：</span><span class="splice-tag-values"><span v-for="item in spliceScheme.forbidden" :key="'forbidden-view-'+item" class="splice-token">{{ item }}</span></span></div>
-                        </div>
+                        <p class="splice-natural-prompt"><span>本次设计品类为{{ spliceScheme.category }}，企划需求是{{ spliceScheme.need }}。</span><template v-if="spliceReferenceGroups.length"><span>参考素材上，</span><template v-for="(item,index) in spliceReferenceGroups"><template v-if="item.preview"><span>{{ item.imageLead }}</span><button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button><span>{{ item.imageTail }}</span><span v-if="item.note">，{{ item.noteLead }}{{ item.note }}</span></template><span v-else>{{ item.noteLead }}{{ item.note }}</span><span>{{ index===spliceReferenceGroups.length-1 ? '。' : '；' }}</span></template></template><span v-if="spliceScheme.directions.length">创意方向聚焦{{ spliceScheme.directions.join('、') }}。</span><span v-if="spliceScheme.constraints.length">工艺与面料上采用{{ spliceScheme.constraints.join('、') }}做法。</span><span v-if="spliceScheme.forbidden.length">禁止项包含{{ spliceScheme.forbidden.join('、') }}。</span></p>
                       </template>
                       <template v-else>
                         <p class="splice-edit-intro"><span class="splice-edit-prefix">请设计一款{{ spliceEditDraft.category }}，企划要求是</span><span class="splice-edit-value"><span class="splice-direct-edit" contenteditable="true" spellcheck="false" data-splice-edit-field="need" data-placeholder="请输入企划需求" @input="limitSpliceEditable($event,500)" @blur="commitSpliceDraftNeed" @paste="pasteSplicePlainText">{{ spliceEditDraft.need }}</span><span>。</span></span></p>
@@ -730,7 +713,7 @@
         selectedDirections: function(){ return this.directions.filter(function(item){return item.selected;}); },
         hasSplicedPrompt: function(){ return Boolean(this.splicedPrompt && this.splicedPrompt.trim()); },
         hasSpliceSchemeReference: function(){ return Boolean(this.spliceScheme.references.length||this.spliceScheme.textReferences.length); },
-        spliceReferenceGroups: function(){ var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];var rawNote=note&&note.note?note.note.trim():'';var preview=image?image.preview:'';var description=rawNote?(preview?('参考该'+kind.label+'图片，'+rawNote):('关于'+kind.label+'参考，'+rawNote)):(preview?('将该图片作为'+kind.label+'参考素材'):'');return {key:kind.key,label:kind.label,preview:preview,description:description};}).filter(function(item){return Boolean(item.preview||item.description);}); },
+        spliceReferenceGroups: function(){ var self=this;var images={};var notes={};this.spliceScheme.references.forEach(function(item){images[item.key]=item;});this.spliceScheme.textReferences.forEach(function(item){notes[item.key]=item;});var groups=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key];return {key:kind.key,label:kind.label,preview:image?image.preview:'',note:note&&note.note?note.note.trim():''};}).filter(function(item){return Boolean(item.preview||item.note);});return groups.map(function(item,index){return Object.assign(item,self.spliceReferenceWording(item.key,index>0));}); },
         spliceEditReferenceGroups: function(){ var images={};var notes={};this.spliceEditDraft.references.forEach(function(item){images[item.key]=item;});this.spliceEditDraft.textReferences.forEach(function(item){notes[item.key]=item;});return this.imageKinds.map(function(kind){var image=images[kind.key];var noteItem=notes[kind.key];return {key:kind.key,label:kind.label,preview:image?image.preview:'',noteItem:noteItem||null};}).filter(function(item){return Boolean(item.preview||item.noteItem);}); },
         spliceSourceSummary: function(){ var sources=['品类选择','企划需求'];if(this.spliceScheme.references.length)sources.push('参考图片');if(this.spliceScheme.textReferences.length)sources.push('参考说明');if(this.spliceScheme.directions.length)sources.push('创意方向');if(this.spliceScheme.constraints.length)sources.push('工艺约束');if(this.spliceScheme.forbidden.length)sources.push('禁止项');return sources.join('、'); },
         hasCurrentPromptResult: function(){ return this.promptMode==='splice' ? this.hasSplicedPrompt : this.directions.length>0; },
@@ -805,6 +788,7 @@
         combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key]){var note=(p.imageNotes[kind.key]||'').trim();imgs.push(kind.label+'：'+p.images[kind.key]+(note?'（'+note+'）':''));}});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
         isSimilarReferenceText: function(a,b){ var clean=function(value){return (value||'').replace(/[\s，。；、,.;：:]/g,'');};var first=clean(a);var second=clean(b);return Boolean(first&&second&&(first===second||first.indexOf(second)!==-1||second.indexOf(first)!==-1)); },
         mergeReferenceText: function(a,b,separator){ var first=(a||'').trim();var second=(b||'').trim();if(!first)return second;if(!second)return first;if(this.isSimilarReferenceText(first,second))return first.length>=second.length?first:second;return first+(separator||'；')+second; },
+        spliceReferenceWording: function(key,hasPrevious){ if(key==='sketch')return {imageLead:'以',imageTail:'为线稿参考',noteLead:'线稿说明：'};if(key==='competitor')return {imageLead:hasPrevious?'同时参考竞品':'参考竞品',imageTail:'',noteLead:'竞品说明：'};return {imageLead:hasPrevious?'可借鉴创意图':'借鉴创意图',imageTail:'',noteLead:'创意说明：'}; },
         createSpliceSchemeFromPlanning: function(){
           var p=this.planning;
           var self=this;
@@ -820,16 +804,17 @@
           return scheme;
         },
         buildSplicedPromptFromScheme: function(scheme){
-          var lines=['请设计一款'+scheme.category+'，企划要求是'+scheme.need+'。'];
+          var self=this;var clauses=['本次设计品类为'+scheme.category+'，企划需求是'+scheme.need+'。'];
           var images={},notes={};
           scheme.references.forEach(function(item){images[item.key]=item;});
           scheme.textReferences.forEach(function(item){notes[item.key]=item;});
-          var referenceParts=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key]&&notes[kind.key].note?notes[kind.key].note.trim():'';if(!image&&!note)return '';if(image&&note)return '参考该'+kind.label+'图片，'+note;if(image)return '将该图片作为'+kind.label+'参考素材';return '关于'+kind.label+'参考，'+note;}).filter(Boolean);
-          if(referenceParts.length)lines.push('参考素材：'+referenceParts.join('；')+'。');
-          if(scheme.directions.length)lines.push('创意方向：'+scheme.directions.join('、')+'。');
-          if(scheme.constraints.length)lines.push('工艺、面料与配色约束：'+scheme.constraints.join('、')+'。');
-          if(scheme.forbidden.length)lines.push('禁止项：'+scheme.forbidden.join('、')+'。');
-          return lines.join('\n');
+          var imageNumber=0;var referenceRows=this.imageKinds.map(function(kind){var image=images[kind.key];var note=notes[kind.key]&&notes[kind.key].note?notes[kind.key].note.trim():'';if(!image&&!note)return null;if(image)imageNumber+=1;return {key:kind.key,imageMark:image?'<图'+imageNumber+'>':'',note:note,hasImage:Boolean(image)};}).filter(Boolean);
+          var referenceParts=referenceRows.map(function(item,index){var wording=self.spliceReferenceWording(item.key,index>0);if(item.hasImage){var copy=wording.imageLead+item.imageMark+wording.imageTail;return item.note?copy+'，'+wording.noteLead+item.note:copy;}return wording.noteLead+item.note;});
+          if(referenceParts.length)clauses.push('参考素材上，'+referenceParts.join('；')+'。');
+          if(scheme.directions.length)clauses.push('创意方向聚焦'+scheme.directions.join('、')+'。');
+          if(scheme.constraints.length)clauses.push('工艺与面料上采用'+scheme.constraints.join('、')+'做法。');
+          if(scheme.forbidden.length)clauses.push('禁止项包含'+scheme.forbidden.join('、')+'。');
+          return clauses.join('');
         },
         buildSplicedPrompt: function(){ return this.buildSplicedPromptFromScheme(this.createSpliceSchemeFromPlanning()); },
         openSplicedPrompt: function(){
