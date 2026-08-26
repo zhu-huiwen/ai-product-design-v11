@@ -233,6 +233,7 @@
     .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
     .splice-inline-note { max-width: 300px; color: #30343A; font-size: 15px; line-height: 24px; }
     .splice-inline-punctuation { margin-left: -2px; color: #30343A; font-size: 16px; }
+    .splice-inline-reference.is-editing { align-items: flex-start; flex-wrap: wrap; }
     .splice-text-reference-list { display: flex; margin-top: 22px; flex-direction: column; gap: 10px; }
     .splice-text-only-reference, .splice-standalone-note { margin: 0; color: #3D424A; font-size: 15px; line-height: 25px; }
     .splice-tag-groups { display: flex; margin-top: 34px; flex-direction: column; gap: 20px; }
@@ -245,19 +246,18 @@
     button.splice-token:disabled { cursor: default; opacity: .7; }
     .splice-token__close { color: #657080; font-size: 16px; font-weight: 400; }
     .splice-edit-intro { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 6px; color: #24272C; font-size: 17px; line-height: 30px; }
-    .splice-inline-need-input { min-width: 220px; flex: 1 1 300px; }
-    .splice-inline-edit-input { width: 190px; }
-    .splice-inline-need-input .el-input__inner, .splice-inline-edit-input .el-input__inner { height: 34px; border: 0; border-bottom: 1px solid #C9D0DA; border-radius: 0; padding: 0 4px; color: #24272C; background: transparent; font-size: 15px; box-shadow: none; }
-    .splice-inline-need-input .el-input__inner { font-size: 17px; }
-    .splice-inline-need-input .el-input__inner:focus, .splice-inline-edit-input .el-input__inner:focus { border-bottom-color: var(--sw-primary); }
+    .splice-inline-need-input { min-width: 260px; flex: 1 1 360px; }
+    .splice-inline-edit-input { width: 260px; max-width: 100%; }
+    .splice-inline-need-input .el-textarea__inner, .splice-inline-edit-input .el-textarea__inner { min-height: 38px !important; padding: 7px 9px; overflow-y: hidden; border: 1px solid #D9DDE5; border-radius: 8px; color: #24272C; background: #fff; font-size: 15px; line-height: 22px; box-shadow: none; resize: none; }
+    .splice-inline-need-input .el-textarea__inner { font-size: 17px; line-height: 24px; }
+    .splice-inline-need-input .el-textarea__inner:focus, .splice-inline-edit-input .el-textarea__inner:focus { border-color: var(--sw-primary); }
     .splice-edit-image-wrap { position: relative; display: inline-flex; flex: 0 0 auto; }
     .splice-edit-image-remove { position: absolute; top: -7px; right: -7px; display: inline-flex; width: 21px; height: 21px; align-items: center; justify-content: center; border: 1px solid #D9DDE5; border-radius: 50%; color: #6F7680; background: #fff; font-size: 14px; line-height: 1; cursor: pointer; }
     .splice-edit-image-remove:hover { border-color: #F04444; color: #F04444; }
-    .splice-edit-copy { color: #30343A; font-size: 15px; line-height: 34px; white-space: nowrap; }
+    .splice-edit-copy { color: #30343A; font-size: 15px; line-height: 38px; white-space: nowrap; }
     .splice-edit-note-remove { display: inline-flex; width: 22px; height: 22px; align-items: center; justify-content: center; border: 0; border-radius: 50%; color: #8B919A; background: transparent; font-size: 16px; cursor: pointer; }
     .splice-edit-note-remove:hover { color: #F04444; background: #FFF2F2; }
     .splice-add-note.el-button { margin-left: 2px; padding: 0; color: var(--sw-primary); font-size: 13px; }
-    .splice-edit-hint { margin: 18px 0 0; color: #909399; font-size: 13px; line-height: 22px; }
     .splice-editor { margin: 0; }
     .splice-editor .el-textarea__inner { min-height: 390px !important; padding: 18px; border-radius: 8px; font-size: 15px; line-height: 1.8; }
     .splice-card__footer { display: flex; margin-top: 16px; align-items: center; color: #9AA0AA; font-size: 13px; }
@@ -487,19 +487,19 @@
                         </div>
                       </template>
                       <template v-else>
-                        <div class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><el-input v-model="spliceEditDraft.need" class="splice-inline-need-input" maxlength="500"></el-input><span>。</span></div>
+                        <div class="splice-edit-intro"><span>请设计一款{{ spliceEditDraft.category }}，企划要求是</span><el-input v-model="spliceEditDraft.need" class="splice-inline-need-input" type="textarea" :autosize="{minRows:1}" resize="none" maxlength="500"></el-input><span>。</span></div>
                         <div v-if="spliceEditReferenceGroups.length||spliceEditDraft.directions.length||spliceEditDraft.constraints.length||spliceEditDraft.forbidden.length" class="splice-content-rows">
                           <div v-if="spliceEditReferenceGroups.length" class="splice-content-row">
                             <span class="splice-content-row__label">参考素材：</span>
                             <div class="splice-reference-flow">
-                              <span v-for="(item,index) in spliceEditReferenceGroups" :key="'edit-inline-'+item.key" class="splice-inline-reference">
+                              <span v-for="(item,index) in spliceEditReferenceGroups" :key="'edit-inline-'+item.key" class="splice-inline-reference is-editing">
                                 <span v-if="item.preview" class="splice-edit-image-wrap">
                                   <button type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
                                   <button type="button" class="splice-edit-image-remove" :aria-label="'删除'+item.label+'参考图片'" @click="removeSpliceDraftReference(item.key)">×</button>
                                 </span>
                                 <template v-if="item.noteItem">
                                   <span class="splice-edit-copy">{{ item.preview ? '参考该'+item.label+'图片，' : '关于'+item.label+'参考，' }}</span>
-                                  <el-input v-model="item.noteItem.note" class="splice-inline-edit-input" maxlength="300" placeholder="补充参考说明"></el-input>
+                                  <el-input v-model="item.noteItem.note" class="splice-inline-edit-input" type="textarea" :autosize="{minRows:1}" resize="none" maxlength="300" placeholder="补充参考说明"></el-input>
                                   <button type="button" class="splice-edit-note-remove" :aria-label="'删除'+item.label+'参考说明'" @click="removeSpliceDraftTextReference(item.key)">×</button>
                                 </template>
                                 <template v-else>
@@ -514,7 +514,6 @@
                           <div v-if="spliceEditDraft.constraints.length" class="splice-content-row"><span class="splice-content-row__label">工艺、面料与配色约束：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.constraints" :key="'constraint-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('constraints',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
                           <div v-if="spliceEditDraft.forbidden.length" class="splice-content-row"><span class="splice-content-row__label">禁止项：</span><span class="splice-tag-values"><button v-for="item in spliceEditDraft.forbidden" :key="'forbidden-edit-'+item" type="button" class="splice-token" @click="removeSpliceDraftTag('forbidden',item)">{{ item }}<span class="splice-token__close">×</span></button></span></div>
                         </div>
-                        <p class="splice-edit-hint">编辑只影响当前拼接方案，不会修改左侧原始企划输入。</p>
                       </template>
                     </div>
                     <div class="splice-card__footer"><span>来源：{{ spliceSourceSummary }}（仅包含非空字段）</span></div>
@@ -768,7 +767,7 @@
         previewSpliceReference: function(item){ if(!item||!item.preview)return;this.previewImage=item.preview;this.previewImageName=item.label+'参考图片';this.previewDialogVisible=true; },
         cloneSpliceScheme: function(scheme){ return JSON.parse(JSON.stringify(scheme)); },
         persistPromptResults: function(){ try{localStorage.setItem(this.promptStorageKey,JSON.stringify({directions:this.directions,splicedPrompt:this.splicedPrompt,spliceScheme:this.spliceScheme,savedAt:new Date().toISOString()}));}catch(e){} },
-        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(saved.spliceScheme&&saved.spliceScheme.category){var restored=this.cloneSpliceScheme(saved.spliceScheme);var self=this;restored.references=Array.isArray(restored.references)?restored.references:[];restored.textReferences=Array.isArray(restored.textReferences)?restored.textReferences:[];restored.references.forEach(function(item){if(!item.preview||item.preview.indexOf('blob:')===0)item.preview=self.referencePlaceholder(item.label);if(item.note){var current=restored.textReferences.find(function(note){return note.key===item.key;});if(current)current.note=self.mergeReferenceText(current.note,item.note);else restored.textReferences.push({key:item.key,label:item.label,note:item.note});delete item.note;}});if(restored.competitorSupplement){var competitor=restored.textReferences.find(function(item){return item.key==='competitor';});if(competitor)competitor.note=self.mergeReferenceText(competitor.note,restored.competitorSupplement);else restored.textReferences.push({key:'competitor',label:'竞品',note:restored.competitorSupplement});delete restored.competitorSupplement;}this.spliceScheme=restored;if(typeof saved.splicedPrompt==='string')this.splicedPrompt=this.buildSplicedPromptFromScheme(restored);}}catch(e){} },
+        restorePromptResults: function(){ try{var raw=localStorage.getItem(this.promptStorageKey);if(!raw)return;var saved=JSON.parse(raw);if(Array.isArray(saved.directions)&&saved.directions.length)this.directions=saved.directions;if(saved.spliceScheme&&saved.spliceScheme.category){var restored=this.cloneSpliceScheme(saved.spliceScheme);var self=this;restored.references=Array.isArray(restored.references)?restored.references:[];restored.textReferences=Array.isArray(restored.textReferences)?restored.textReferences:[];restored.references.forEach(function(item){if(!item.preview||item.preview.indexOf('blob:')===0)item.preview=self.referencePlaceholder(item.label);if(item.note){var current=restored.textReferences.find(function(note){return note.key===item.key;});if(current)current.note=self.mergeReferenceText(current.note,item.note);else restored.textReferences.push({key:item.key,label:item.label,note:item.note});delete item.note;}});if(restored.competitorSupplement){var competitor=restored.textReferences.find(function(item){return item.key==='competitor';});if(competitor)competitor.note=self.mergeReferenceText(competitor.note,restored.competitorSupplement,'，');else restored.textReferences.push({key:'competitor',label:'竞品',note:restored.competitorSupplement});delete restored.competitorSupplement;}this.spliceScheme=restored;if(typeof saved.splicedPrompt==='string')this.splicedPrompt=this.buildSplicedPromptFromScheme(restored);}}catch(e){} },
         runCurrentPromptMode: function(){ if(this.promptMode==='splice')this.openSplicedPrompt();else this.generatePrompts(); },
         switchPromptMode: function(mode){
           if(mode===this.promptMode)return;
@@ -793,7 +792,7 @@
         referencePlaceholder: function(label){ var svg='<svg xmlns="http://www.w3.org/2000/svg" width="320" height="260"><rect width="320" height="260" fill="#F5F7FA"/><path d="M65 190l60-70 42 45 34-37 55 62H65z" fill="#DDE5EF"/><circle cx="218" cy="76" r="24" fill="#CBD8E7"/><text x="160" y="232" text-anchor="middle" font-family="PingFang SC,sans-serif" font-size="24" fill="#7D8794">'+label+'参考图</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg); },
         combinedPrompt: function(){ var p=this.planning;var lines=['品类：'+p.category];if(p.need.trim())lines.push('企划需求：'+p.need.trim());var imgs=[];this.imageKinds.forEach(function(kind){if(p.images[kind.key]){var note=(p.imageNotes[kind.key]||'').trim();imgs.push(kind.label+'：'+p.images[kind.key]+(note?'（'+note+'）':''));}});if(imgs.length)lines.push('参考图片：'+imgs.join('；'));if(p.competitor.trim())lines.push('竞品说明：'+p.competitor.trim());if(p.directions.length)lines.push('创意方向：'+p.directions.join('、'));if(p.constraints.length)lines.push('工艺约束：'+p.constraints.join('、'));if(p.forbidden.length)lines.push('禁止项：'+p.forbidden.join('、'));return lines.join('\n'); },
         isSimilarReferenceText: function(a,b){ var clean=function(value){return (value||'').replace(/[\s，。；、,.;：:]/g,'');};var first=clean(a);var second=clean(b);return Boolean(first&&second&&(first===second||first.indexOf(second)!==-1||second.indexOf(first)!==-1)); },
-        mergeReferenceText: function(a,b){ var first=(a||'').trim();var second=(b||'').trim();if(!first)return second;if(!second)return first;if(this.isSimilarReferenceText(first,second))return first.length>=second.length?first:second;return first+'；'+second; },
+        mergeReferenceText: function(a,b,separator){ var first=(a||'').trim();var second=(b||'').trim();if(!first)return second;if(!second)return first;if(this.isSimilarReferenceText(first,second))return first.length>=second.length?first:second;return first+(separator||'；')+second; },
         createSpliceSchemeFromPlanning: function(){
           var p=this.planning;
           var self=this;
@@ -803,7 +802,7 @@
             var note=(p.imageNotes[kind.key]||'').trim();
             var competitorText=kind.key==='competitor'?(p.competitor||'').trim():'';
             if(hasImage)scheme.references.push({key:kind.key,label:kind.label,preview:p.imagePreviews[kind.key]||self.referencePlaceholder(kind.label)});
-            var relatedNote=kind.key==='competitor'?self.mergeReferenceText(note,competitorText):note;
+            var relatedNote=kind.key==='competitor'?self.mergeReferenceText(note,competitorText,'，'):note;
             if(relatedNote)scheme.textReferences.push({key:kind.key,label:kind.label,note:relatedNote});
           });
           return scheme;
