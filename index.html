@@ -235,6 +235,11 @@
     .splice-inline-image { display: inline-flex; width: 76px; height: 64px; flex: 0 0 76px; padding: 4px; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #DDE1E8; border-radius: 9px; background: #fff; cursor: zoom-in; }
     .splice-inline-image img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; }
     .splice-reference-sentence { min-width: 0; padding-top: 4px; color: #30343A; font-size: 15px; line-height: 26px; overflow-wrap: anywhere; white-space: pre-wrap; word-break: break-all; }
+    .splice-reference-flow--view { display: block; min-width: 0; color: #30343A; font-size: 15px; line-height: 28px; }
+    .splice-reference-flow--view .splice-inline-reference, .splice-reference-flow--view .splice-inline-reference.is-text-only { display: inline; width: auto; min-width: 0; }
+    .splice-reference-flow--view .splice-inline-image { display: inline-flex; width: 46px; height: 46px; margin: 1px 7px 1px 2px; padding: 2px; vertical-align: middle; border-radius: 50%; }
+    .splice-reference-flow--view .splice-inline-image img { border-radius: 50%; }
+    .splice-reference-flow--view .splice-reference-sentence { display: inline; padding-top: 0; font-size: inherit; line-height: inherit; vertical-align: middle; }
     .splice-inline-punctuation { color: #30343A; font-size: 15px; }
     .splice-text-reference-list { display: flex; margin-top: 22px; flex-direction: column; gap: 10px; }
     .splice-text-only-reference, .splice-standalone-note { margin: 0; color: #3D424A; font-size: 15px; line-height: 25px; }
@@ -479,7 +484,7 @@
                         <div v-if="spliceReferenceGroups.length||spliceScheme.directions.length||spliceScheme.constraints.length||spliceScheme.forbidden.length" class="splice-content-rows">
                           <div v-if="spliceReferenceGroups.length" class="splice-content-row">
                             <span class="splice-content-row__label">参考素材：</span>
-                            <div class="splice-reference-flow">
+                            <div class="splice-reference-flow splice-reference-flow--view">
                               <span v-for="(item,index) in spliceReferenceGroups" :key="item.key" :class="['splice-inline-reference',{'is-text-only':!item.preview}]">
                                 <button v-if="item.preview" type="button" class="splice-inline-image" :aria-label="'查看'+item.label+'参考图片'" @click="previewSpliceReference(item)"><img :src="item.preview" :alt="item.label+'参考图'"></button>
                                 <span class="splice-reference-sentence"><span>{{ item.description }}</span><span class="splice-inline-punctuation">{{ index===spliceReferenceGroups.length-1 ? '。' : '；' }}</span></span>
